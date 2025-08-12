@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "mwenhancements",
+    "name": "EDMwe",
+    "description": "A mod designed for PVP players with extra features for Mega Walls Edited by AcuteTr1angle",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/Alexdoru/MWE",
+    "updateUrl": "",
+    "authorList": [
+      "Alexdoru",
+      "AcuteTr1angle"
+    ],
+    "credits": "Alexdoru",
+    "logoFile": "MegaWalls-logo.png",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
