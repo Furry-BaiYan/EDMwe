@@ -44,6 +44,42 @@ public class ScoreboardUtils {
         return false;
     }
 
+    public static String bwColor() {
+        final List<String> formattedSidebarLines = getFormattedSidebarText(ScoreboardUtils.mc.theWorld.getScoreboard());
+        final List<String> unformattedSidebarLines = stripControlCodes(formattedSidebarLines);
+        if (unformattedSidebarLines.size() < 6) {
+            return null;
+        }
+        if (unformattedSidebarLines.get(4).contains("YOU")) {
+            return EnumChatFormatting.RED + "R ";
+        }
+        if (unformattedSidebarLines.get(5).contains("YOU")) {
+            return EnumChatFormatting.BLUE + "B ";
+        }
+        if (unformattedSidebarLines.size() < 12) {
+            return null;
+        }
+        if (unformattedSidebarLines.get(6).contains("YOU")) {
+            return EnumChatFormatting.GREEN + "G ";
+        }
+        if (unformattedSidebarLines.get(7).contains("YOU")) {
+            return EnumChatFormatting.YELLOW + "Y ";
+        }
+        if (unformattedSidebarLines.get(8).contains("YOU")) {
+            return EnumChatFormatting.AQUA + "A ";
+        }
+        if (unformattedSidebarLines.get(9).contains("YOU")) {
+            return EnumChatFormatting.WHITE + "W ";
+        }
+        if (unformattedSidebarLines.get(10).contains("YOU")) {
+            return EnumChatFormatting.LIGHT_PURPLE + "P ";
+        }
+        if (unformattedSidebarLines.get(11).contains("YOU")) {
+            return EnumChatFormatting.DARK_GRAY + "S ";
+        }
+        return null;
+    }
+
     /**
      * Returns a list of formatted strings containing each line of the scoreboard/sidebar
      * Item at index 0 is the first line etc

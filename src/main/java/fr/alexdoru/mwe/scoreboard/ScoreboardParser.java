@@ -42,6 +42,7 @@ public class ScoreboardParser {
     private String replayMap = null;
     private boolean isInSkyblock = false;
     private boolean isPreGameLobby = false;
+    private boolean isInBedwars = false;
     private boolean isPrepPhase = false;
     private boolean hasGameEnded = false;
 
@@ -78,6 +79,8 @@ public class ScoreboardParser {
             this.parseReplayScoreboard(scoreboard);
         } else if (cleanTitle.contains("SKYBLOCK")) {
             isInSkyblock = true;
+        } else if (cleanTitle.contains("BED WARS") && ScoreboardUtils.bwColor() != null) {
+            this.isInBedwars = true;
         }
 
     }
@@ -256,6 +259,10 @@ public class ScoreboardParser {
 
     public boolean isInMwGame() {
         return isInMwGame;
+    }
+
+    public boolean isInBedwars() {
+        return this.isInBedwars;
     }
 
     public boolean isPreGameLobby() {

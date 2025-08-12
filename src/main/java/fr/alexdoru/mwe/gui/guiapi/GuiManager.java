@@ -27,7 +27,7 @@ public final class GuiManager {
     public static final CreeperPrimedTntHUD creeperPrimedTntHUD = new CreeperPrimedTntHUD();
     public static final EnergyDisplayHUD energyDisplayHUD = new EnergyDisplayHUD();
     public static final FKCounterHUD fkCounterHUD = new FKCounterHUD();
-    public static final PlayerCompassHUD playerCompassHUD = new PlayerCompassHUD();
+    public static final ClosestPlayerHUD playerCompassHUD = new ClosestPlayerHUD();
     public static final StrengthHUD strengthHUD = new StrengthHUD();
     public static final KillCooldownHUD killCooldownHUD = new KillCooldownHUD();
     public static final LastWitherHPHUD lastWitherHPHUD = new LastWitherHPHUD();

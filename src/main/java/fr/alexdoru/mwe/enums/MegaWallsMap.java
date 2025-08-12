@@ -1,56 +1,55 @@
+//Deobfuscated with https://github.com/SimplyProgrammer/Minecraft-Deobfuscator3000 using mappings "D:\Deobfuscator3000\mappings"!
+
+//Decompiled by Procyon!
+
 package fr.alexdoru.mwe.enums;
 
 import fr.alexdoru.mwe.features.FinalKillCounter;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.entity.player.*;
+import net.minecraft.util.*;
+import java.util.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static fr.alexdoru.mwe.enums.MegaWallsMap.TeamColor.*;
-
-public enum MegaWallsMap {
-
-    ANCHORED(RED, YELLOW, BLUE, GREEN, -53, 54, 54, -53, 65),
-    AZTEC(YELLOW, BLUE, RED, GREEN, 820, -902, 927, -1009, 36),
-    BARRAGE(YELLOW, BLUE, RED, GREEN, -189, -723, -87, -825, 38),
-    BLOODMOON(YELLOW, BLUE, RED, GREEN, -53, 54, 54, -53, 65),
-    CITY(GREEN, RED, BLUE, YELLOW, -189, -725, -89, -825, 34),
-    DRAGONKEEP(YELLOW, BLUE, RED, GREEN, -190, -724, -88, -826, 38),
-    DUSKFORGE(BLUE, YELLOW, RED, GREEN, -53, 54, 54, -53, 65),
-    DYNASTY(GREEN, RED, BLUE, YELLOW, -54, 54, 53, -53, 57),
-    EBONVEIL(BLUE, RED, GREEN, YELLOW, -53, 54, 54, -53, 71),
-    EGYPT(RED, YELLOW, BLUE, GREEN, -190, -724, -88, -826, 38),
-    FORSAKEN(BLUE, RED, GREEN, YELLOW, -190, -724, -88, -826, 38),
-    GOLDFORGE(YELLOW, RED, GREEN, BLUE, -53, 54, 54, -53, 57),
-    IMPERIAL(YELLOW, BLUE, RED, GREEN, -53, 54, 54, -53, 65),
-    KINGDOM(GREEN, RED, BLUE, YELLOW, -190, -724, -89, -825, 38),
-    KIROBIRO(BLUE, RED, GREEN, YELLOW, -52, 55, 55, -52, 57),
-    LAUNCHSITE(BLUE, YELLOW, GREEN, RED, -50, 51, 51, -50, 42),
-    MADPIXEL(YELLOW, BLUE, RED, GREEN, -51, 51, 51, -51, 29),
-    OASIS(GREEN, BLUE, YELLOW, RED, -50, 50, 52, -52, 60),
-    SERENITY(BLUE, RED, GREEN, YELLOW, -44, 51, 56, -49, 41),
-    SERPENTS(GREEN, RED, BLUE, YELLOW, -189, -722, -88, -823, 49),
-    SHADOWSTONE(BLUE, YELLOW, RED, GREEN, -53, 54, 54, -53, 65),
-    SHANTYBAY(BLUE, RED, GREEN, YELLOW, -53, 54, 54, -53, 71),
-    SOLACE(BLUE, YELLOW, GREEN, RED, -131, -696, -24, -803, 57),
-    STEPPES(YELLOW, GREEN, RED, BLUE, -838, -234, -736, -336, 60),
-    STONEHOLD(YELLOW, BLUE, RED, GREEN, -53, 54, 54, -53, 65),
-    WONDERLAND(GREEN, YELLOW, BLUE, RED, -53, 54, 54, -53, 58);
-
-    private final TeamColor northBase, eastBase, southBase, westBase;
-    private final double northLimit, eastLimit, southLimit, westLimit;
-    private final double innerNorthLimit, innerEastLimit, innerSouthLimit, innerWestLimit;
+public enum MegaWallsMap
+{
+    ANCHORED(TeamColor.RED, TeamColor.YELLOW, TeamColor.BLUE, TeamColor.GREEN, -53.0, 54.0, 54.0, -53.0, 65.0), 
+    AZTEC(TeamColor.YELLOW, TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, 820.0, -902.0, 927.0, -1009.0, 36.0), 
+    BARRAGE(TeamColor.YELLOW, TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, -189.0, -723.0, -87.0, -825.0, 38.0), 
+    BLOODMOON(TeamColor.YELLOW, TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, -53.0, 54.0, 54.0, -53.0, 65.0), 
+    CITY(TeamColor.GREEN, TeamColor.RED, TeamColor.BLUE, TeamColor.YELLOW, -189.0, -725.0, -89.0, -825.0, 34.0), 
+    DRAGONKEEP(TeamColor.YELLOW, TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, -190.0, -724.0, -88.0, -826.0, 38.0), 
+    DUSKFORGE(TeamColor.BLUE, TeamColor.YELLOW, TeamColor.RED, TeamColor.GREEN, -53.0, 54.0, 54.0, -53.0, 65.0), 
+    DYNASTY(TeamColor.GREEN, TeamColor.RED, TeamColor.BLUE, TeamColor.YELLOW, -54.0, 54.0, 53.0, -53.0, 57.0), 
+    EBONVEIL(TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, TeamColor.YELLOW, -53.0, 54.0, 54.0, -53.0, 71.0), 
+    EGYPT(TeamColor.RED, TeamColor.YELLOW, TeamColor.BLUE, TeamColor.GREEN, -190.0, -724.0, -88.0, -826.0, 38.0), 
+    FORSAKEN(TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, TeamColor.YELLOW, -190.0, -724.0, -88.0, -826.0, 38.0), 
+    GOLDFORGE(TeamColor.YELLOW, TeamColor.RED, TeamColor.GREEN, TeamColor.BLUE, -53.0, 54.0, 54.0, -53.0, 57.0), 
+    IMPERIAL(TeamColor.YELLOW, TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, -53.0, 54.0, 54.0, -53.0, 65.0), 
+    KINGDOM(TeamColor.GREEN, TeamColor.RED, TeamColor.BLUE, TeamColor.YELLOW, -190.0, -724.0, -89.0, -825.0, 38.0), 
+    KIROBIRO(TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, TeamColor.YELLOW, -52.0, 55.0, 55.0, -52.0, 57.0), 
+    LAUNCHSITE(TeamColor.BLUE, TeamColor.YELLOW, TeamColor.GREEN, TeamColor.RED, -50.0, 51.0, 51.0, -50.0, 42.0), 
+    MADPIXEL(TeamColor.YELLOW, TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, -51.0, 51.0, 51.0, -51.0, 29.0), 
+    OASIS(TeamColor.GREEN, TeamColor.BLUE, TeamColor.YELLOW, TeamColor.RED, -50.0, 50.0, 52.0, -52.0, 60.0), 
+    SERENITY(TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, TeamColor.YELLOW, -44.0, 51.0, 56.0, -49.0, 41.0), 
+    SERPENTS(TeamColor.GREEN, TeamColor.RED, TeamColor.BLUE, TeamColor.YELLOW, -189.0, -722.0, -88.0, -823.0, 49.0), 
+    SHADOWSTONE(TeamColor.BLUE, TeamColor.YELLOW, TeamColor.RED, TeamColor.GREEN, -53.0, 54.0, 54.0, -53.0, 65.0), 
+    SHANTYBAY(TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, TeamColor.YELLOW, -53.0, 54.0, 54.0, -53.0, 71.0), 
+    SOLACE(TeamColor.BLUE, TeamColor.YELLOW, TeamColor.GREEN, TeamColor.RED, -131.0, -696.0, -24.0, -803.0, 57.0), 
+    STEPPES(TeamColor.YELLOW, TeamColor.GREEN, TeamColor.RED, TeamColor.BLUE, -838.0, -234.0, -736.0, -336.0, 60.0), 
+    STONEHOLD(TeamColor.YELLOW, TeamColor.BLUE, TeamColor.RED, TeamColor.GREEN, -53.0, 54.0, 54.0, -53.0, 65.0), 
+    WONDERLAND(TeamColor.GREEN, TeamColor.YELLOW, TeamColor.BLUE, TeamColor.RED, -53.0, 54.0, 54.0, -53.0, 58.0);
+    
+    private final TeamColor northBase;
+    private final TeamColor eastBase;
+    private final TeamColor southBase;
+    private final TeamColor westBase;
+    private final double northLimit;
+    private final double eastLimit;
+    private final double southLimit;
+    private final double westLimit;
     private final double surfaceLevel;
-    private static final Map<String, MegaWallsMap> fromNameMap = new HashMap<>();
-
-    static {
-        for (final MegaWallsMap map : MegaWallsMap.values()) {
-            fromNameMap.put(map.name().toLowerCase(), map);
-        }
-    }
-
-    MegaWallsMap(TeamColor northBase, TeamColor eastBase, TeamColor southBase, TeamColor westBase, double northLimit, double eastLimit, double southLimit, double westLimit, double surfaceLevel) {
+    private static final Map<String, MegaWallsMap> fromNameMap;
+    
+    private MegaWallsMap(final TeamColor northBase, final TeamColor eastBase, final TeamColor southBase, final TeamColor westBase, final double northLimit, final double eastLimit, final double southLimit, final double westLimit, final double surfaceLevel) {
         this.northBase = northBase;
         this.eastBase = eastBase;
         this.southBase = southBase;
@@ -60,85 +59,115 @@ public enum MegaWallsMap {
         this.southLimit = southLimit;
         this.westLimit = westLimit;
         this.surfaceLevel = surfaceLevel;
-        final int FRONT_BASE_WIDTH = 12;
-        this.innerNorthLimit = this.northLimit + FRONT_BASE_WIDTH;
-        this.innerEastLimit = this.eastLimit - FRONT_BASE_WIDTH;
-        this.innerSouthLimit = this.southLimit - FRONT_BASE_WIDTH;
-        this.innerWestLimit = this.westLimit + FRONT_BASE_WIDTH;
     }
-
-    public String getPlayerBaseLocation(EntityPlayer player,String selfBase) {
-        //             NORTH -Z
-        //   WEST -X             EAST +X
-        //             SOUTH +Z
-        if (isPlayerAtMiddle(player)) {
-            if (isPlayerAtMidMid(player)) {
-                return "MIDDLE" + "(" + selfBase + ")";
-            }
-//            else if (ab(player) && player.posX > innerEastLimit && cd(player)) {
-//                return "MIDDLE(" + eastBase.formattedName() + EnumChatFormatting.RESET + ")";
-//            } else if (!cd(player) && player.posZ > innerSouthLimit && ab(player)) {
-//                return "MIDDLE(" + southBase.formattedName() + EnumChatFormatting.RESET + ")";
-//            } else if (!ab(player) && player.posX < innerWestLimit && !cd(player)) {
-//                return "MIDDLE(" + westBase.formattedName() + EnumChatFormatting.RESET + ")";
-//            } else if (cd(player) && player.posZ < innerNorthLimit && !ab(player)) {
-//                return "MIDDLE(" + northBase.formattedName() + EnumChatFormatting.RESET + ")";
-//            }
-        } else {
-            if (player.posZ < northLimit && player.posX > westLimit) {
-                return northBase.formattedName() + EnumChatFormatting.RESET + "(" + selfBase + EnumChatFormatting.RESET + ")";
-            } else if (player.posX > eastLimit && player.posZ > northLimit) {
-                return eastBase.formattedName() + EnumChatFormatting.RESET + "(" + selfBase + EnumChatFormatting.RESET + ")";
-            } else if (player.posZ > southLimit && player.posX < eastLimit) {
-                return southBase.formattedName() + EnumChatFormatting.RESET + "(" + selfBase + EnumChatFormatting.RESET + ")";
-            } else if (player.posX < westLimit && player.posZ < southLimit) {
-                return westBase.formattedName() + EnumChatFormatting.RESET + "(" + selfBase + EnumChatFormatting.RESET + ")";
-            }
+    
+    public String getPlayerBaseLocation(final EntityPlayer player) {
+        if (player.posZ < this.northLimit && player.posX > this.westLimit) {
+            return this.northBase.formattedName();
+        }
+        if (player.posX > this.eastLimit && player.posZ > this.northLimit) {
+            return this.eastBase.formattedName();
+        }
+        if (player.posZ > this.southLimit && player.posX < this.eastLimit) {
+            return this.southBase.formattedName();
+        }
+        if (player.posX < this.westLimit && player.posZ < this.southLimit) {
+            return this.westBase.formattedName();
+        }
+        if (this.isPlayerAtMiddle(player)) {
+            return "MIDDLE";
         }
         return "";
     }
-
-    private boolean isPlayerAtMiddle(EntityPlayer player) {
-        return player.posX < eastLimit && player.posX > westLimit && player.posZ < southLimit && player.posZ > northLimit;
+    
+    private boolean isPlayerAtMiddle(final EntityPlayer player) {
+        return player.posX < this.eastLimit && player.posX > this.westLimit && player.posZ < this.southLimit && player.posZ > this.northLimit;
     }
-
-    private boolean isPlayerAtMidMid(EntityPlayer player) {
-        return player.posX < innerEastLimit && player.posX > innerWestLimit && player.posZ < innerSouthLimit && player.posZ > innerNorthLimit;
+    
+    private double calculateDistanceToMiddle(final EntityPlayer player) {
+        final double middleX = (this.eastLimit + this.westLimit) / 2.0;
+        final double middleZ = (this.northLimit + this.southLimit) / 2.0;
+        final double distanceToMiddle = Math.sqrt(Math.pow(player.posX - middleX, 2.0) + Math.pow(player.posZ - middleZ, 2.0));
+        return distanceToMiddle;
     }
-
-    private boolean ab(EntityPlayer player) {
-        return player.posX > -player.posZ + eastLimit + northLimit;
+    
+    public String getNearestBase(final EntityPlayer player) {
+        final double distanceToMiddle = this.calculateDistanceToMiddle(player);
+        final double middleX = (this.eastLimit + this.westLimit) / 2.0;
+        final double middleZ = (this.northLimit + this.southLimit) / 2.0;
+        final double playerX = player.posX;
+        final double playerZ = player.posZ;
+        final double distanceToNorthMiddle = Math.sqrt(Math.pow(playerX - middleX, 2.0) + Math.pow(playerZ - this.northLimit, 2.0));
+        final double distanceToEastMiddle = Math.sqrt(Math.pow(playerX - this.eastLimit, 2.0) + Math.pow(playerZ - middleZ, 2.0));
+        final double distanceToSouthMiddle = Math.sqrt(Math.pow(playerX - middleX, 2.0) + Math.pow(playerZ - this.southLimit, 2.0));
+        final double distanceToWestMiddle = Math.sqrt(Math.pow(playerX - this.westLimit, 2.0) + Math.pow(playerZ - middleZ, 2.0));
+        double minDistance = Double.MAX_VALUE;
+        if (player.posZ < this.northLimit && player.posX > this.westLimit) {
+            minDistance = Math.min(distanceToEastMiddle, Math.min(distanceToSouthMiddle, distanceToWestMiddle));
+        }
+        else if (player.posX > this.eastLimit && player.posZ > this.northLimit) {
+            minDistance = Math.min(distanceToNorthMiddle, Math.min(distanceToSouthMiddle, distanceToWestMiddle));
+        }
+        else if (player.posZ > this.southLimit && player.posX < this.eastLimit) {
+            minDistance = Math.min(distanceToNorthMiddle, Math.min(distanceToEastMiddle, distanceToWestMiddle));
+        }
+        else if (player.posX < this.westLimit && player.posZ < this.southLimit) {
+            minDistance = Math.min(distanceToNorthMiddle, Math.min(distanceToSouthMiddle, distanceToEastMiddle));
+        }
+        else if (this.isPlayerAtMiddle(player)) {
+            minDistance = Math.min(distanceToNorthMiddle, Math.min(distanceToEastMiddle, Math.min(distanceToSouthMiddle, distanceToWestMiddle)));
+        }
+        if (minDistance == distanceToNorthMiddle) {
+            return EnumChatFormatting.RESET + "(" + this.northBase.formattedName() + EnumChatFormatting.RESET + ")";
+        }
+        if (minDistance == distanceToEastMiddle) {
+            return EnumChatFormatting.RESET + "(" + this.eastBase.formattedName() + EnumChatFormatting.RESET + ")";
+        }
+        if (minDistance == distanceToSouthMiddle) {
+            return EnumChatFormatting.RESET + "(" + this.southBase.formattedName() + EnumChatFormatting.RESET + ")";
+        }
+        if (minDistance == distanceToWestMiddle) {
+            return EnumChatFormatting.RESET + "(" + this.westBase.formattedName() + EnumChatFormatting.RESET + ")";
+        }
+        return "";
     }
-
-    private boolean cd(EntityPlayer player) {
-        return player.posX > player.posZ + westLimit - northLimit;
+    
+    public static MegaWallsMap fromName(final String name) {
+        return MegaWallsMap.fromNameMap.get(name.replace(" ", "").toLowerCase());
     }
-
-    public static MegaWallsMap fromName(String name) {
-        return fromNameMap.get(name.replace(" ", "").toLowerCase());
+    
+    static {
+        fromNameMap = new HashMap<String, MegaWallsMap>();
+        for (final MegaWallsMap map : values()) {
+            MegaWallsMap.fromNameMap.put(map.name().toLowerCase(), map);
+        }
     }
-
-    enum TeamColor {
-
-        BLUE,
-        GREEN,
-        RED,
+    
+    enum TeamColor
+    {
+        BLUE, 
+        GREEN, 
+        RED, 
         YELLOW;
-
+        
         public String formattedName() {
             switch (this) {
-                case BLUE:
+                case BLUE: {
                     return FinalKillCounter.getColorPrefixFromTeam(3) + "BLUE";
-                case GREEN:
+                }
+                case GREEN: {
                     return FinalKillCounter.getColorPrefixFromTeam(1) + "GREEN";
-                case RED:
+                }
+                case RED: {
                     return FinalKillCounter.getColorPrefixFromTeam(0) + "RED";
-                case YELLOW:
+                }
+                case YELLOW: {
                     return FinalKillCounter.getColorPrefixFromTeam(2) + "YELLOW";
-                default:
+                }
+                default: {
                     throw new IllegalStateException(this.name() + " shoudn't exist in this enum");
+                }
             }
         }
     }
-
 }

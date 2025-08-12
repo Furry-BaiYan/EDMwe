@@ -14,7 +14,10 @@ public class ScoreboardTracker {
      * Turns true from the moment the player gets tp to the cage to the end of the game
      * False in the pre game lobby
      */
-    private static boolean isInMwGame = false;
+    public static boolean isInMwGame = false;
+
+    public static boolean isInBedwars = false;
+
     /** True in the pre game lobby in mega walls */
     private static boolean isPreGameLobby = false;
     /** True during the preparation phase of a mega walls game */
@@ -53,6 +56,7 @@ public class ScoreboardTracker {
         Minecraft.getMinecraft().mcProfiler.startSection("MWE Scoreboard");
         parser = new ScoreboardParser();
         isInMwGame = parser.isInMwGame();
+        isInBedwars = parser.isInBedwars();
         isMWEnvironement = parser.isMWEnvironement();
         isPreGameLobby = parser.isPreGameLobby();
         isPrepPhase = parser.isPrepPhase();

@@ -4,6 +4,7 @@ import fr.alexdoru.mwe.config.MWEConfig;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
+import org.lwjgl.opengl.GL11;
 
 public class ColorUtil {
 
@@ -37,6 +38,14 @@ public class ColorUtil {
         } else {
             return EnumChatFormatting.GRAY;
         }
+    }
+
+    public static void color(final int color) {
+        final float alpha = (color >> 24 & 0xFF) / 255.0f;
+        final float red = (color >> 16 & 0xFF) / 255.0f;
+        final float green = (color >> 8 & 0xFF) / 255.0f;
+        final float blue = (color & 0xFF) / 255.0f;
+        GL11.glColor4f(red, green, blue, alpha);
     }
 
     public static EnumChatFormatting getColoredHP(EnumChatFormatting original, int hp) {

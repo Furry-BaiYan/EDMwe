@@ -22,7 +22,7 @@ public class BaseLocationHUD extends AbstractRenderer {
 
     @Override
     public void render(ScaledResolution resolution) {
-        final String text = currentMap.getPlayerBaseLocation(mc.thePlayer, StringUtil.getTeamByName(mc.thePlayer.getDisplayName().getFormattedText()));
+        final String text = currentMap.getPlayerBaseLocation(mc.thePlayer) + currentMap.getNearestBase(mc.thePlayer);
         this.guiPosition.updateAdjustedAbsolutePosition(resolution, mc.fontRendererObj.getStringWidth(text), mc.fontRendererObj.FONT_HEIGHT);
         drawCenteredString(mc.fontRendererObj, text, this.guiPosition.getAbsoluteRenderX(), this.guiPosition.getAbsoluteRenderY(), 0xFFFFFF);
     }
