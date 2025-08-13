@@ -9,7 +9,6 @@ import fr.alexdoru.mwe.features.FinalKillCounter;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.ColorUtil;
 import fr.alexdoru.mwe.utils.NameUtil;
-import fr.alexdoru.mwe.utils.RenderUtil;
 import net.minecraft.client.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.*;
@@ -48,15 +47,17 @@ public class ClosestPlayerHUD extends AbstractRenderer
         final String teamColor;
         final EntityPlayer player;
         final String info;
-        final String displayText;
+        final String posDiffText;
+        final String hpText;
         final double degrees;
         final int rowWidth;
 
-        RenderRow(String teamColor, EntityPlayer player, String info, String displayText, double degrees, int rowWidth) {
+        RenderRow(String teamColor, EntityPlayer player, String info, String posDiffText,String hpText, double degrees, int rowWidth) {
             this.teamColor = teamColor;
             this.player = player;
             this.info = info;
-            this.displayText = displayText;
+            this.posDiffText = posDiffText;
+            this.hpText = hpText;
             this.degrees = degrees;
             this.rowWidth = rowWidth;
         }
@@ -118,11 +119,11 @@ public class ClosestPlayerHUD extends AbstractRenderer
                     posDiffText = displayColor + "0";
                 }
                 DecimalFormat df = new DecimalFormat("#.0");
-                String displayText = posDiffText + "   " + ColorUtil.getColoredHP(EnumChatFormatting.WHITE,(int) closestEntity.getHealth()) + df.format(closestEntity.getHealth());
+                String hpText = ColorUtil.getColoredHP(EnumChatFormatting.WHITE,(int) closestEntity.getHealth()) + df.format(closestEntity.getHealth());
 
                 final int textXOffsetForCalc = iconSize + 4;
                 final int arrowXForCalc = textXOffsetForCalc + mc.fontRendererObj.getStringWidth(info) + 4;
-                final int rowWidth = arrowXForCalc + arrowSize + 4 + mc.fontRendererObj.getStringWidth(displayText);
+                final int rowWidth = arrowXForCalc + arrowSize + 4 + mc.fontRendererObj.getStringWidth(posDiffText);
                 if (rowWidth > maxWidth) {
                     maxWidth = rowWidth;
                 }
@@ -137,7 +138,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
                     degrees += 360.0;
                 }
 
-                rowsToRender.add(new RenderRow(teamColor, closestEntity, info, displayText, degrees, rowWidth));
+                rowsToRender.add(new RenderRow(teamColor, closestEntity, info, posDiffText, hpText ,degrees, rowWidth));
             }
         }
 
@@ -184,8 +185,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
             GL11.glPopMatrix();
 
             // Draw display text (Y-diff and health)
-            mc.fontRendererObj.drawStringWithShadow(row.displayText, (float)(arrowX + 14), yOffset + 1.5f, -1);
-
+            mc.fontRendererObj.drawStringWithShadow(row.posDiffText, (float)(arrowX + 14), yOffset + 1.5f, -1);
             yOffset += 15;
         }
         GlStateManager.disableBlend();
