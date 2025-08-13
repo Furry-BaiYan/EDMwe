@@ -64,11 +64,11 @@ public class MiniPotionHUD extends AbstractRenderer {
             }
         }
         len -= 2;
-        int x = this.guiPosition.getAbsoluteRenderX() - len / 2;
+        int y = this.guiPosition.getAbsoluteRenderY() - len / 2;
         for (int i = 0; i < 5; i++) {
             if (strings[i] == null) return;
-            mc.fontRendererObj.drawStringWithShadow(strings[i], x, this.guiPosition.getAbsoluteRenderY(), colors[i]);
-            x += mc.fontRendererObj.getStringWidth(strings[i]) + 2;
+            mc.fontRendererObj.drawStringWithShadow(strings[i], this.guiPosition.getAbsoluteRenderX(), y, colors[i]);
+            y += mc.fontRendererObj.FONT_HEIGHT + 2;
         }
     }
 

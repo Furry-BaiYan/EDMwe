@@ -21,7 +21,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.entity.*;
 
 import java.text.DecimalFormat;
-import java.util.*;
 import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
