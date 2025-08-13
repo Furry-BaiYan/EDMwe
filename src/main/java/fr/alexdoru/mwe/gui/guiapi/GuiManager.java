@@ -71,14 +71,6 @@ public final class GuiManager {
     @SubscribeEvent
     public void onRenderGUI(RenderGameOverlayEvent.Post event) {
 
-        mc.fontRendererObj.drawString("isInDeathMatch: " + FinalKillCounter.inDeathMatch,0,0,-1);
-        if (mc.thePlayer != null && mc.theWorld != null) {
-            if (mc.thePlayer.getTeam() != null) {
-                mc.fontRendererObj.drawString("selfTeam: " + StringUtil.getTeamByName(mc.thePlayer.getDisplayName().getFormattedText()),0,0 + (mc.fontRendererObj.FONT_HEIGHT * 1),-1);
-            }
-        }
-
-
         if (event.type == ElementType.TEXT && !(mc.currentScreen instanceof PositionEditGuiScreen)) {
             final long time = System.currentTimeMillis();
             mc.mcProfiler.startSection("MWE HUD");

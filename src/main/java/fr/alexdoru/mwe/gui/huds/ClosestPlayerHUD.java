@@ -9,6 +9,7 @@ import fr.alexdoru.mwe.features.FinalKillCounter;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.ColorUtil;
 import fr.alexdoru.mwe.utils.NameUtil;
+import fr.alexdoru.mwe.utils.RenderUtil;
 import net.minecraft.client.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.*;
@@ -18,6 +19,8 @@ import org.lwjgl.opengl.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.entity.*;
+
+import java.text.DecimalFormat;
 import java.util.*;
 import java.awt.*;
 import java.util.List;
@@ -33,7 +36,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
     
     public ClosestPlayerHUD() {
         super(MWEConfig.compassHUDPosition);
-        this.mc = Minecraft.getMinecraft();
+        mc = Minecraft.getMinecraft();
         ClosestPlayerHUD.instance = this;
     }
     
@@ -41,7 +44,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
         this.guiPosition.updateAbsolutePosition(resolution);
         final boolean isInBedwars = ScoreboardTracker.isInBedwars;
         if (MWEConfig.compassHUDPosition.isEnabled() && (ScoreboardTracker.isInMwGame || isInBedwars)) {
-            final EntityPlayerSP player = this.mc.thePlayer;
+            final EntityPlayerSP player = mc.thePlayer;
             final double playerX = player.posX;
             final double playerZ = player.posZ;
             String[] teamColors = { FinalKillCounter.getColorPrefixFromTeam(0), FinalKillCounter.getColorPrefixFromTeam(1), FinalKillCounter.getColorPrefixFromTeam(2), FinalKillCounter.getColorPrefixFromTeam(3) };
@@ -53,11 +56,11 @@ public class ClosestPlayerHUD extends AbstractRenderer
                 double closestDistance = Double.MAX_VALUE;
                 String closestPlayerName = null;
                 EntityPlayer closestEntity = null;
-                for (final EntityPlayer otherPlayer : this.mc.theWorld.playerEntities) {
+                for (final EntityPlayer otherPlayer : mc.theWorld.playerEntities) {
                     final String displayName = NameUtil.getFormattedNameWithoutIcons(otherPlayer.getDisplayName().getFormattedText());
                     final String unformattedName = NameUtil.getFormattedNameWithoutIcons(otherPlayer.getDisplayName().getUnformattedText());
-                    if (displayName.contains(teamColor) && unformattedName.substring(0, 2).equals(teamColor) && otherPlayer != this.mc.thePlayer) {
-                        final double distance = player.getDistanceToEntity((Entity)otherPlayer);
+                    if (displayName.contains(teamColor) && unformattedName.substring(0, 2).equals(teamColor) && otherPlayer != mc.thePlayer) {
+                        final double distance = player.getDistanceToEntity(otherPlayer);
                         if (distance >= closestDistance) {
                             continue;
                         }
@@ -70,35 +73,34 @@ public class ClosestPlayerHUD extends AbstractRenderer
                     final int iconSize = 10;
                     final int xOffset = this.guiPosition.getAbsoluteRenderX();
                     final int textXOffset = xOffset + iconSize + 4;
-                    final String teamColorCode = teamColor;
                     final List<EntityPlayer> playerEntityInRadiusList = getPlayerEntityInRadiusList(closestEntity, 16.0);
-                    String info = ((teamColorCode != null) ? teamColorCode : "") + String.format("%.0f", closestDistance) + EnumChatFormatting.RESET;
+                    String info = teamColor + String.format("%.0f", closestDistance) + EnumChatFormatting.RESET;
                     if (playerEntityInRadiusList != null && !playerEntityInRadiusList.isEmpty()) {
-                        info = ((teamColorCode != null) ? teamColorCode : "") + String.format("%.0f", closestDistance) + "(" + playerEntityInRadiusList.size() + ")" + EnumChatFormatting.RESET;
+                        info = teamColor + String.format("%.0f", closestDistance) + "(" + playerEntityInRadiusList.size() + ")" + EnumChatFormatting.RESET;
                     }
-                    this.mc.fontRendererObj.drawStringWithShadow(info, (float)textXOffset, yOffset2 + 1.5f, -1);
+                    mc.fontRendererObj.drawStringWithShadow(info, (float)textXOffset, yOffset2 + 1.5f, -1);
                     GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                     final ResourceLocation skinLocation = ((AbstractClientPlayer)closestEntity).getLocationSkin();
-                    this.mc.getTextureManager().bindTexture(skinLocation);
+                    mc.getTextureManager().bindTexture(skinLocation);
                     Gui.drawScaledCustomSizeModalRect(xOffset, yOffset2, 8.0f, 8.0f, 8, 8, iconSize, iconSize, 64.0f, 64.0f);
                     final double deltaX = closestEntity.posX - playerX;
                     final double deltaZ = closestEntity.posZ - playerZ;
                     final double angle = Math.atan2(deltaZ, deltaX);
                     double degrees = Math.toDegrees(angle);
                     degrees = (degrees + 360.0) % 360.0;
-                    degrees -= this.mc.thePlayer.rotationYaw;
+                    degrees -= mc.thePlayer.rotationYaw;
                     if (degrees < 0.0) {
                         degrees += 360.0;
                     }
                     final int arrowSize = 10;
-                    final int arrowX = textXOffset + this.mc.fontRendererObj.getStringWidth(info) + 4;
-                    final float arrowY = (float)(yOffset2 + this.mc.fontRendererObj.FONT_HEIGHT / 2 - arrowSize / 2 + 1);
+                    final int arrowX = textXOffset + mc.fontRendererObj.getStringWidth(info) + 4;
+                    final float arrowY = (float)(yOffset2 + mc.fontRendererObj.FONT_HEIGHT / 2 - arrowSize / 2 + 1);
                     GL11.glPushMatrix();
                     GL11.glDisable(2929);
                     GL11.glEnable(3042);
                     GL11.glBlendFunc(770, 771);
                     ColorUtil.color(this.getTracerColor(teamColor).getRGB());
-                    GL11.glTranslatef((float)(arrowX + arrowSize / 2), arrowY + arrowSize / 2, 0.0f);
+                    GL11.glTranslatef((float)(arrowX + arrowSize / 2), arrowY + (float) arrowSize / 2, 0.0f);
                     GL11.glRotatef((float)degrees - 90.0f, 0.0f, 0.0f, 1.0f);
                     GL11.glTranslatef((float)(-arrowSize / 2), (float)(-arrowSize / 2), 0.0f);
                     Minecraft.getMinecraft().getTextureManager().bindTexture(ClosestPlayerHUD.texture);
@@ -107,7 +109,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
                     GL11.glDisable(3042);
                     GL11.glEnable(2929);
                     GL11.glPopMatrix();
-                    final double yourPosY = this.mc.thePlayer.posY;
+                    final double yourPosY = mc.thePlayer.posY;
                     final double targetPosY = closestEntity.posY;
                     final int posYDifference = (int)Math.round(targetPosY - yourPosY);
                     final EnumChatFormatting displayColor = (closestEntity.isInvisible() && ScoreboardTracker.isInBedwars) ? EnumChatFormatting.LIGHT_PURPLE : EnumChatFormatting.GRAY;
@@ -121,7 +123,9 @@ public class ClosestPlayerHUD extends AbstractRenderer
                     else {
                         displayText = displayColor + "0";
                     }
-                    this.mc.fontRendererObj.drawStringWithShadow(displayText, (float)(arrowX + 14), yOffset2 + 1.5f, -1);
+                    DecimalFormat df = new DecimalFormat("#.0");
+                    displayText += "   " + ColorUtil.getColoredHP(EnumChatFormatting.WHITE,(int) closestEntity.getHealth()) + df.format(closestEntity.getHealth());
+                    mc.fontRendererObj.drawStringWithShadow(displayText, (float)(arrowX + 14), yOffset2 + 1.5f, -1);
                     yOffset2 += 15;
                 }
                 GlStateManager.disableBlend();
@@ -156,7 +160,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
     }
     
     public void renderDummy() {
-        final EntityPlayerSP player = this.mc.thePlayer;
+        final EntityPlayerSP player = mc.thePlayer;
         final double playerX = player.posX;
         final double playerZ = player.posZ;
         final String[] teamColors = ClosestPlayerHUD.dummyColorArray;
@@ -164,30 +168,30 @@ public class ClosestPlayerHUD extends AbstractRenderer
         for (final String teamColor : teamColors) {
             final double closestDistance = 0.0;
             final String closestPlayerName = teamColor + player.getDisplayName().getFormattedText();
-            final Entity closestEntity = (Entity)player;
+            final Entity closestEntity = player;
             if (closestPlayerName != null) {
                 final int iconSize = 10;
                 final int xOffset = this.guiPosition.getAbsoluteRenderX();
                 final int textXOffset = xOffset + iconSize + 4;
                 final String teamColorCode = teamColor;
                 final String info = ((teamColorCode != null) ? teamColorCode : "") + String.format("%.0f", closestDistance) + EnumChatFormatting.RESET;
-                this.mc.fontRendererObj.drawStringWithShadow(info, (float)textXOffset, yOffset2 + 1.5f, -1);
+                mc.fontRendererObj.drawStringWithShadow(info, (float)textXOffset, yOffset2 + 1.5f, -1);
                 GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                 final ResourceLocation skinLocation = player.getLocationSkin();
-                this.mc.getTextureManager().bindTexture(skinLocation);
+                mc.getTextureManager().bindTexture(skinLocation);
                 Gui.drawScaledCustomSizeModalRect(xOffset, yOffset2, 8.0f, 8.0f, 8, 8, iconSize, iconSize, 64.0f, 64.0f);
                 final double deltaX = closestEntity.posX - playerX;
                 final double deltaZ = closestEntity.posZ - playerZ;
                 final double angle = Math.atan2(deltaZ, deltaX);
                 double degrees = Math.toDegrees(angle);
                 degrees = (degrees + 360.0) % 360.0;
-                degrees -= this.mc.thePlayer.rotationYaw;
+                degrees -= mc.thePlayer.rotationYaw;
                 if (degrees < 0.0) {
                     degrees += 360.0;
                 }
                 final int arrowSize = 10;
-                final int arrowX = textXOffset + this.mc.fontRendererObj.getStringWidth(info) + 4;
-                final float arrowY = (float)(yOffset2 + this.mc.fontRendererObj.FONT_HEIGHT / 2 - arrowSize / 2 + 1);
+                final int arrowX = textXOffset + mc.fontRendererObj.getStringWidth(info) + 4;
+                final float arrowY = (float)(yOffset2 + mc.fontRendererObj.FONT_HEIGHT / 2 - arrowSize / 2 + 1);
                 GL11.glPushMatrix();
                 GL11.glDisable(2929);
                 GL11.glEnable(3042);
@@ -202,7 +206,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
                 GL11.glDisable(3042);
                 GL11.glEnable(2929);
                 GL11.glPopMatrix();
-                this.mc.fontRendererObj.drawStringWithShadow("0", (float)(arrowX + 14), yOffset2 + 1.5f, -1);
+                mc.fontRendererObj.drawStringWithShadow("0   " + EnumChatFormatting.GREEN + "20.0", (float)(arrowX + 14), yOffset2 + 1.5f, -1);
                 yOffset2 += 15;
             }
         }
@@ -306,7 +310,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
     }
     
     public boolean isEnabled(final long currentTimeMillis) {
-        return this.mc.thePlayer != null && this.mc.theWorld != null && MWEConfig.compassHUDPosition.isEnabled() && (ScoreboardTracker.isInMwGame || ScoreboardTracker.isInBedwars);
+        return mc.thePlayer != null && mc.theWorld != null && MWEConfig.compassHUDPosition.isEnabled() && (ScoreboardTracker.isInMwGame || ScoreboardTracker.isInBedwars);
     }
     
     static {
