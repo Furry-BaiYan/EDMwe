@@ -36,8 +36,8 @@ import java.io.File;
 public class MWE {
 
     public static final String modid = "mwenhancements";
-    public static final String modName = "MWE";
-    public static final String version = "4.0";
+    public static final String modName = "EDMwe";
+    public static final String version = "4.1";
     public static final Logger logger = LogManager.getLogger(modName);
     public static File jarFile;
 

@@ -118,7 +118,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
                     posDiffText = displayColor + "0";
                 }
                 DecimalFormat df = new DecimalFormat("#.0");
-                String displayText = posDiffText + "   " + ColorUtil.getColoredHP(EnumChatFormatting.WHITE,(int) closestEntity.getHealth()) + df.format(closestEntity.getHealth());
+                String displayText = posDiffText + "  " + ColorUtil.getColoredHP(EnumChatFormatting.WHITE,(int) closestEntity.getHealth()) + df.format(closestEntity.getHealth());
 
                 final int textXOffsetForCalc = iconSize + 4;
                 final int arrowXForCalc = textXOffsetForCalc + mc.fontRendererObj.getStringWidth(info) + 4;
@@ -149,7 +149,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
         int yOffset = this.guiPosition.getAbsoluteRenderY();
         final int totalHeight = rowsToRender.size() * 15;
 
-        Gui.drawRect(xOffset - 2, yOffset - 2, xOffset + maxWidth + 2, yOffset + totalHeight, new Color(0, 0, 0, 120).getRGB());
+        if (MWEConfig.compassHUDBG) Gui.drawRect(xOffset - 2, yOffset - 1, xOffset + maxWidth + 2, yOffset + totalHeight, new Color(0, 0, 0, 120).getRGB());
 
         for (final RenderRow row : rowsToRender) {
             final int iconSize = 10;

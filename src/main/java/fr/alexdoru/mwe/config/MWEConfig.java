@@ -767,6 +767,12 @@ public class MWEConfig extends AbstractConfig {
     public static final GuiPosition compassHUDPosition = new GuiPosition(true, 0.5, 0.6);
 
     @ConfigProperty(
+            category = "Mega Walls", subCategory = "HUD",
+            name = "Compass background",
+            comment = "Player Compass HUD background")
+    public static boolean compassHUDBG = false;
+
+    @ConfigProperty(
             category = MEGA_WALLS, subCategory = "HUD",
             name = "Warcry HUD",
             comment = "Displays the warcry cooldown")
