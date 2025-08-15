@@ -5,10 +5,7 @@ import fr.alexdoru.mwe.chat.ChatListener;
 import fr.alexdoru.mwe.commands.*;
 import fr.alexdoru.mwe.config.MWEConfig;
 import fr.alexdoru.mwe.events.KeybindingListener;
-import fr.alexdoru.mwe.features.FinalKillCounter;
-import fr.alexdoru.mwe.features.LowHPIndicator;
-import fr.alexdoru.mwe.features.MegaWallsEndGameStats;
-import fr.alexdoru.mwe.features.SquadHandler;
+import fr.alexdoru.mwe.features.*;
 import fr.alexdoru.mwe.gui.guiapi.GuiManager;
 import fr.alexdoru.mwe.hackerdetector.HackerDetector;
 import fr.alexdoru.mwe.nocheaters.PlayerJoinListener;
@@ -26,6 +23,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+
+import static fr.alexdoru.mwe.Wrapper.mc;
 
 @Mod(
         modid = MWE.modid,
@@ -50,6 +49,7 @@ public class MWE {
     @EventHandler
     public void init(FMLInitializationEvent event) {
 
+        MinecraftForge.EVENT_BUS.register(new PhxRespawnListener());
         MinecraftForge.EVENT_BUS.register(new WdrData());
         MinecraftForge.EVENT_BUS.register(new GuiManager());
         MinecraftForge.EVENT_BUS.register(new ModUpdater());
@@ -79,6 +79,10 @@ public class MWE {
         ClientCommandHandler.instance.registerCommand(new CommandNocheaters());
         ClientCommandHandler.instance.registerCommand(new CommandHypixelShout());
 
+    }
+
+    public static boolean nullcheck() {
+        return mc.thePlayer == null || mc.theWorld == null;
     }
 
 }

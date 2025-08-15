@@ -13,6 +13,7 @@ import fr.alexdoru.mwe.data.MWPlayerData;
 import fr.alexdoru.mwe.data.ScangameData;
 import fr.alexdoru.mwe.enums.MWClass;
 import fr.alexdoru.mwe.features.LeatherArmorManager;
+import fr.alexdoru.mwe.features.PhxRespawnListener;
 import fr.alexdoru.mwe.features.SquadHandler;
 import fr.alexdoru.mwe.nocheaters.WDR;
 import fr.alexdoru.mwe.nocheaters.WarningMessages;
@@ -316,7 +317,7 @@ public class NameUtil {
 
     private static final Pattern obfPattern = Pattern.compile("§k[OX]*");
 
-    private static String deobfString(String obfText) {
+    public static String deobfString(String obfText) {
         return obfPattern.matcher(obfText).replaceAll("");
     }
 

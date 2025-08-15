@@ -2,6 +2,7 @@ package fr.alexdoru.mwe.scoreboard;
 
 import fr.alexdoru.mwe.chat.ChatUtil;
 import fr.alexdoru.mwe.features.AFKSoundWarning;
+import fr.alexdoru.mwe.features.FinalKillCounter;
 import fr.alexdoru.mwe.gui.guiapi.GuiManager;
 import fr.alexdoru.mwe.utils.SoundUtil;
 import fr.alexdoru.mwe.utils.StringUtil;
