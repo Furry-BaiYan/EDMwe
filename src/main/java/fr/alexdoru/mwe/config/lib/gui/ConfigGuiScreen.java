@@ -190,7 +190,7 @@ public class ConfigGuiScreen extends GuiScreen {
         final int headPosX = GUI_INSIDE_LEFT + fontRendererObj.getStringWidth(modnameText);
         Gui.drawScaledCustomSizeModalRect(headPosX, GUI_INSIDE_TOP, 8, 8, 8, 8, 8, 8, 64.0F, 32.0F);
         Gui.drawScaledCustomSizeModalRect(headPosX, GUI_INSIDE_TOP, 40, 8, 8, 8, 8, 8, 64.0F, 32.0F);
-        fontRendererObj.drawStringWithShadow(EnumChatFormatting.GOLD + "Alexdoru and Edited By AcuteTr1angle & mxu", headPosX + 10, GUI_INSIDE_TOP, 0xFFFFFFFF);
+        fontRendererObj.drawStringWithShadow(EnumChatFormatting.GOLD + "Alexdoru and Edited By AcuteTr1angle & LangYa & mxu", headPosX + 10, GUI_INSIDE_TOP, 0xFFFFFFFF);
 
         searchField.xPosition = GUI_INSIDE_RIGHT - Math.min(searchField.width, mc.fontRendererObj.getStringWidth(searchField.getText())) - 8;
         drawRect(SEARCH_BOX_LEFT, SEARCH_BOX_TOP, SEARCH_BOX_RIGHT, SEARCH_BOX_BOTTOM, 0xFF515156);

@@ -43,6 +43,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
         this.guiPosition.updateAbsolutePosition(resolution);
         final boolean isInBedwars = ScoreboardTracker.isInBedwars;
         if (MWEConfig.compassHUDPosition.isEnabled() && (ScoreboardTracker.isInMwGame || isInBedwars)) {
+            //RenderUtil.drawRect(guiPosition.getAbsoluteRenderX(), guiPosition.getAbsoluteRenderY(), 100,40,Integer.MIN_VALUE);
             final EntityPlayerSP player = mc.thePlayer;
             final double playerX = player.posX;
             final double playerZ = player.posZ;
