@@ -36,6 +36,7 @@ public class ScoreboardParser {
     private final List<String> aliveWithers = new ArrayList<>(4);
     private String gameId = null;
     private boolean isInMwGame = false;
+    private boolean isInDeathMatch = false;
     private boolean isMWEnvironement = false;
     private boolean isReplayMode = false;
     private boolean isAtlasMode = false;
@@ -89,9 +90,17 @@ public class ScoreboardParser {
     private void parseMegaWallsScoreboard(Scoreboard scoreboard, String teamColor) {
         final List<String> formattedLines = ScoreboardUtils.getFormattedSidebarText(scoreboard);
         final List<String> cleanLines = ScoreboardUtils.stripControlCodes(formattedLines);
-
+        final List<String> witherLines = new ArrayList<>();
         if (cleanLines.size() < 10) {
             return;
+        }
+
+        for (String s : formattedLines) {
+            String unformat = s.replaceAll("§.", "");
+            if (unformat.contains("Wither HP")) {
+                witherLines.add(s);
+            }
+            isInDeathMatch = witherLines.isEmpty();
         }
 
         if (MW_INGAME_PATTERN.matcher(cleanLines.get(9)).find()) {
@@ -264,6 +273,10 @@ public class ScoreboardParser {
 
     public boolean isInBedwars() {
         return this.isInBedwars;
+    }
+
+    public boolean isInDeathMatch() {
+        return this.isInDeathMatch;
     }
 
     public boolean isPreGameLobby() {

@@ -32,6 +32,7 @@ public class ScoreboardTracker {
     private static boolean isMWReplay = false;
     /** True when is Skyblock */
     private static boolean isInSkyblock = false;
+    private static boolean isInDeathMatch = false;
 
     private static ScoreboardParser parser = new ScoreboardParser();
 
@@ -64,6 +65,7 @@ public class ScoreboardTracker {
         isAtlasMode = parser.isAtlasMode();
         isMWReplay = parser.isMWReplay();
         isInSkyblock = parser.isInSkyblock();
+        isInDeathMatch = parser.isInDeathMatch();
         if (isMWReplay) {
             GuiManager.baseLocationHUD.setCurrentMap(parser.getReplayMap());
         }
@@ -80,7 +82,6 @@ public class ScoreboardTracker {
 
             if (this.prevGameId != null) {
                 MinecraftForge.EVENT_BUS.post(new MegaWallsGameEvent(MegaWallsGameEvent.EventType.DISCONNECT));
-                FinalKillCounter.inDeathMatch = false;
             }
 
         } else { // is in MW game
@@ -89,19 +90,16 @@ public class ScoreboardTracker {
                 MinecraftForge.EVENT_BUS.post(new MegaWallsGameEvent(MegaWallsGameEvent.EventType.THIRD_WITHER_DEATH));
             } else if (amountWitherAlive == 0 && prevAmountWitherAlive > 0) {
                 MinecraftForge.EVENT_BUS.post(new MegaWallsGameEvent(MegaWallsGameEvent.EventType.DEATHMATCH_START));
-                FinalKillCounter.inDeathMatch = true;
             }
 
             if (!gameId.equals(this.prevGameId)) {
                 MinecraftForge.EVENT_BUS.post(new MegaWallsGameEvent(MegaWallsGameEvent.EventType.CONNECT));
-                FinalKillCounter.inDeathMatch = false;
             }
 
         }
 
         if (hasgameended && !this.prevHasGameEnded) {
             MinecraftForge.EVENT_BUS.post(new MegaWallsGameEvent(MegaWallsGameEvent.EventType.GAME_END));
-            FinalKillCounter.inDeathMatch = false;
         }
 
         this.prevGameId = gameId;
@@ -143,6 +141,10 @@ public class ScoreboardTracker {
 
     public static boolean isInSkyblock() {
         return isInSkyblock;
+    }
+
+    public static boolean isInDeathMatch() {
+        return isInDeathMatch;
     }
 
 }

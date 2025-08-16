@@ -2,13 +2,15 @@ package fr.alexdoru.mwe.features;
 
 import fr.alexdoru.mwe.Wrapper;
 import fr.alexdoru.mwe.events.MegaWallsGameEvent;
-import fr.alexdoru.mwe.utils.ChatUtil;
+import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
+import fr.alexdoru.mwe.utils.LogUtil;
 import fr.alexdoru.mwe.utils.NameUtil;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -22,7 +24,7 @@ public class PhxRespawnListener implements Wrapper {
 
     private final List<String> phxs = new ArrayList<>();
     private final List<PHXPlayer> PHX_NONE_RES_LIST = new ArrayList<>();  //没复活
-    private static final List<String> PHX_ALR_RES_LIST = new ArrayList<>();   //已复活
+    public static final List<String> PHX_ALR_RES_LIST = new ArrayList<>();   //已复活
     private boolean isTick1;
     int tick;
 
@@ -43,9 +45,9 @@ public class PhxRespawnListener implements Wrapper {
                 String displayname = info.getDisplayName() != null ? info.getDisplayName().getFormattedText() : ScorePlayerTeam.formatPlayerName(info.getPlayerTeam(), info.getGameProfile().getName());
                 String name = info.getGameProfile().getName();
                 if (remove(displayname).contains("[PHX]") && !phxs.contains(name)) {
-                    PHX_NONE_RES_LIST.add(new PHXPlayer(name,20,20));
+                    PHX_NONE_RES_LIST.add(new PHXPlayer(name,displayname,20,20));
                     phxs.add(name);
-                    ChatUtil.addMessage(EnumChatFormatting.GOLD + "Found PHX Player: " + displayname);
+                    LogUtil.addMessage(EnumChatFormatting.GOLD + "Found PHX Player: " + displayname);
                 }
             }
         }
@@ -63,9 +65,9 @@ public class PhxRespawnListener implements Wrapper {
                         player.setTick2HP(hp);
                     }
                     player.setDeltaHP(player.tick1HP - player.tick2HP);
-                    if (Math.abs(player.deltaHP) > 32 && !PHX_ALR_RES_LIST.contains(player.getName())) {
-                        PHX_ALR_RES_LIST.add(player.getName());
-                        ChatUtil.addMessage(EnumChatFormatting.RED + "Player " + EnumChatFormatting.GOLD + player.getName() + EnumChatFormatting.RED + " JUST RESPAWNED!!!!!!!!");
+                    if (Math.abs(player.deltaHP) > 32 && !PHX_ALR_RES_LIST.contains(player.getDisplayname())) {
+                        PHX_ALR_RES_LIST.add(player.getDisplayname());
+                        LogUtil.addMessage(EnumChatFormatting.RED + "Player " + player.getDisplayname() + EnumChatFormatting.RED + " JUST RESPAWNED!!!!!!!!");
                         iterator.remove();
                     }
             }
@@ -116,6 +118,12 @@ public class PhxRespawnListener implements Wrapper {
         }
 
         private String name;
+
+        public String getDisplayname() {
+            return displayname;
+        }
+
+        private String displayname;
         private int tick1HP;
         private int tick2HP;
         private int deltaHP;
@@ -132,8 +140,9 @@ public class PhxRespawnListener implements Wrapper {
             this.deltaHP = deltaHP;
         }
 
-        private PHXPlayer(String name, int tick1HP, int tick2HP) {
+        private PHXPlayer(String name,String displayname,int tick1HP, int tick2HP) {
             this.name = name;
+            this.displayname = displayname;
             this.tick1HP = tick1HP;
             this.tick2HP = tick2HP;
         }

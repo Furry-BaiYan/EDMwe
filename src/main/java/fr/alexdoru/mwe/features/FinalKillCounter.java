@@ -17,6 +17,9 @@ import fr.alexdoru.mwe.utils.StringUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.scoreboard.Score;
+import net.minecraft.scoreboard.ScoreObjective;
+import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumParticleTypes;
@@ -26,6 +29,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static fr.alexdoru.mwe.Wrapper.mc;
 
 public class FinalKillCounter {
 
@@ -141,7 +146,6 @@ public class FinalKillCounter {
     private static final HashMap<String, Integer>[] teamKillsArray;
     private static final Random rand = new Random();
     private static String gameId;
-    public static boolean inDeathMatch = false;
 
     static {
         KILL_PATTERNS = new Pattern[KILL_MESSAGES.length];
@@ -179,7 +183,7 @@ public class FinalKillCounter {
 
     public static boolean processMessage(ClientChatReceivedEvent event, String formattedText, String unformattedText) {
 
-        if (MWEConfig.count_before_deathmatch && !inDeathMatch) {
+        if (MWEConfig.count_before_deathmatch && !ScoreboardTracker.isInDeathMatch()) {
             return false;
         }
 

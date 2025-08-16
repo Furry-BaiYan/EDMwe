@@ -132,7 +132,6 @@ public class ChatListener {
 
             if (msg.equals(PREP_PHASE)) {
                 MinecraftForge.EVENT_BUS.post(new MegaWallsGameEvent(MegaWallsGameEvent.EventType.GAME_START));
-                FinalKillCounter.inDeathMatch = false;
                 return;
             }
 

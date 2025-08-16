@@ -1,27 +1,14 @@
 package fr.alexdoru.mwe.gui.guiapi;
 
-import fr.alexdoru.mwe.asm.interfaces.EntityPlayerAccessor;
-import fr.alexdoru.mwe.features.FinalKillCounter;
 import fr.alexdoru.mwe.gui.huds.*;
-import fr.alexdoru.mwe.utils.ChatUtil;
-import fr.alexdoru.mwe.utils.NameUtil;
-import fr.alexdoru.mwe.utils.StringUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class GuiManager {
 

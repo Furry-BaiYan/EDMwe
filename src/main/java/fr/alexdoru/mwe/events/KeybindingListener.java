@@ -2,7 +2,9 @@ package fr.alexdoru.mwe.events;
 
 import fr.alexdoru.mwe.chat.ChatUtil;
 import fr.alexdoru.mwe.config.MWEConfig;
+import fr.alexdoru.mwe.features.PhxRespawnListener;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
+import fr.alexdoru.mwe.utils.LogUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGameOver;
 import net.minecraft.client.settings.KeyBinding;
@@ -20,6 +22,7 @@ public class KeybindingListener {
     private static final KeyBinding teamchestKey = new KeyBinding("/teamchest", 0, "MWE");
     private static final KeyBinding toggleSprintKey = new KeyBinding("Toggle Sprint", 0, "MWE");
     private static final KeyBinding warcryKey = new KeyBinding("/warcry", 0, "MWE");
+    private static final KeyBinding phxreslist = new KeyBinding("Show PHX list",0,"MWE");
     private static final KeyBinding newNickKey = new KeyBinding("New Random Nick", 0, "MWE");
     private static final KeyBinding playerHitboxes = new KeyBinding("Toggle player hitboxes", 0, "Hitboxes");
     private static final KeyBinding toggleDroppedItemLimit = new KeyBinding("Toggle dropped item limit", 0, "MWE");
@@ -31,6 +34,7 @@ public class KeybindingListener {
         ClientRegistry.registerKeyBinding(teamchestKey);
         ClientRegistry.registerKeyBinding(toggleSprintKey);
         ClientRegistry.registerKeyBinding(warcryKey);
+        ClientRegistry.registerKeyBinding(phxreslist);
         ClientRegistry.registerKeyBinding(newNickKey);
         ClientRegistry.registerKeyBinding(playerHitboxes);
         ClientRegistry.registerKeyBinding(toggleDroppedItemLimit);
@@ -73,6 +77,13 @@ public class KeybindingListener {
                 ChatUtil.addChatMessage(ChatUtil.getTagHitboxes() + EnumChatFormatting.WHITE + "Draw hitboxes for players: " + EnumChatFormatting.GREEN + "On");
             } else {
                 ChatUtil.addChatMessage(ChatUtil.getTagHitboxes() + EnumChatFormatting.WHITE + "Draw hitboxes for players: " + EnumChatFormatting.RED + "Off");
+            }
+        } else if (phxreslist.isKeyDown()) {
+            if (!PhxRespawnListener.PHX_ALR_RES_LIST.isEmpty()) {
+                LogUtil.addMessage("List of Revived Phoenixes: ");
+                PhxRespawnListener.PHX_ALR_RES_LIST.forEach(LogUtil::addcfgmessage);
+            } else {
+                LogUtil.addMessage("No Revived Phoenix");
             }
         }
 
