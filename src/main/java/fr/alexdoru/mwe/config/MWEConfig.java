@@ -716,6 +716,12 @@ public class MWEConfig extends AbstractConfig {
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "HUD",
+            name = "Player Strength HUD",
+            comment = "Displays players that have strength.")
+    public static final GuiPosition playerStrengthHUD = new GuiPosition(true, 0.5d, 8d / 20d);
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "HUD",
             name = "Creeper primed TNT HUD",
             comment = "Displays the cooldown of primed TNT when playing Creeper")
     public static final GuiPosition creeperTNTHUDPosition = new GuiPosition(true, 0.5d, 8d / 20d);
@@ -765,6 +771,12 @@ public class MWEConfig extends AbstractConfig {
 
     @ConfigProperty(category = "Mega Walls", subCategory = "HUD", name = "Player Compass HUD", comment = "Displays a tablist of nearest players")
     public static final GuiPosition compassHUDPosition = new GuiPosition(true, 0.5, 0.6);
+
+    @ConfigProperty(
+            category = "Mega Walls", subCategory = "HUD",
+            name = "Closest Player Warn",
+            comment = "add player warning for compass")
+    public static boolean playerWarn = true;
 
     @ConfigProperty(
             category = "Mega Walls", subCategory = "HUD",
@@ -1139,10 +1151,6 @@ public class MWEConfig extends AbstractConfig {
             comment = "Displays a mini-tablist with your squadmates")
     public static final GuiPosition squadHUDPosition = new GuiPosition(true, 0.25d, 0d);
 
-    @ConfigProperty(
-            category = "Updates",
-            name = "Automatic Update",
-            comment = "Updates the mod automatically")
-    public static boolean automaticUpdate = true;
+    public static boolean automaticUpdate = false;
 
 }

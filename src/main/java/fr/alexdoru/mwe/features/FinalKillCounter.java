@@ -10,16 +10,10 @@ import fr.alexdoru.mwe.events.MegaWallsGameEvent;
 import fr.alexdoru.mwe.gui.guiapi.GuiManager;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.scoreboard.ScoreboardUtils;
-import fr.alexdoru.mwe.utils.DelayedTask;
-import fr.alexdoru.mwe.utils.MapUtil;
-import fr.alexdoru.mwe.utils.NameUtil;
-import fr.alexdoru.mwe.utils.StringUtil;
+import fr.alexdoru.mwe.utils.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.scoreboard.Score;
-import net.minecraft.scoreboard.ScoreObjective;
-import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumParticleTypes;
@@ -29,8 +23,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static fr.alexdoru.mwe.Wrapper.mc;
 
 public class FinalKillCounter {
 
@@ -182,11 +174,6 @@ public class FinalKillCounter {
     }
 
     public static boolean processMessage(ClientChatReceivedEvent event, String formattedText, String unformattedText) {
-
-        if (MWEConfig.count_before_deathmatch && !ScoreboardTracker.isInDeathMatch()) {
-            return false;
-        }
-
         for (final Pattern pattern : KILL_PATTERNS) {
 
             final Matcher matcher = pattern.matcher(unformattedText);
@@ -201,14 +188,16 @@ public class FinalKillCounter {
                     final String killedTeamColor = StringUtil.getLastColorCodeBefore(formattedText, killedPlayer);
                     final String killerTeamColor = StringUtil.getLastColorCodeBefore(formattedText.replaceFirst(killedPlayer, ""), killer);
                     int killsOfKilledPlayer = 0;
-                    if (!killedTeamColor.isEmpty() && !killerTeamColor.isEmpty()) {
-                        killsOfKilledPlayer = removeKilledPlayer(killedPlayer, killedTeamColor);
-                        if (killsOfKilledPlayer != -1) {
-                            addKill(killer, killerTeamColor);
-                            playersPresentInGame.add(killedPlayer);
-                            playersPresentInGame.add(killer);
+                    if (shouldCount()) {
+                        if (!killedTeamColor.isEmpty() && !killerTeamColor.isEmpty()) {
+                            killsOfKilledPlayer = removeKilledPlayer(killedPlayer, killedTeamColor);
+                            if (killsOfKilledPlayer != -1) {
+                                addKill(killer, killerTeamColor);
+                                playersPresentInGame.add(killedPlayer);
+                                playersPresentInGame.add(killer);
+                            }
+                            GuiManager.fkCounterHUD.updateDisplayText();
                         }
-                        GuiManager.fkCounterHUD.updateDisplayText();
                     }
                     spawnParticles(killer);
                     final String s = formattedText.replace(killer, SquadHandler.getSquadname(killer))
@@ -297,6 +286,10 @@ public class FinalKillCounter {
 
     private static boolean isWitherDead(String color) {
         return !ScoreboardTracker.getParser().isWitherAlive(color);
+    }
+
+    private static boolean shouldCount() {
+        return !MWEConfig.count_before_deathmatch || ScoreboardTracker.isInDeathMatch();
     }
 
     private static boolean areAllWithersAlive() {
@@ -415,7 +408,6 @@ public class FinalKillCounter {
     }
 
     private static void spawnParticles(String killer) {
-
         if (!MWEConfig.strengthParticles) {
             return;
         }
@@ -433,6 +425,7 @@ public class FinalKillCounter {
         } else {
             return;
         }
+        StrengthTracker.onKill(killer);
 
         final EntityPlayer player = NameUtil.getPlayerEntityByName(killer);
         if (player == null) {

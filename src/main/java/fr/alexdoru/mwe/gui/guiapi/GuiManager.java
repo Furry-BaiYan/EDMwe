@@ -22,6 +22,7 @@ public final class GuiManager {
     public static final FKCounterHUD fkCounterHUD = new FKCounterHUD();
     public static final ClosestPlayerHUD playerCompassHUD = new ClosestPlayerHUD();
     public static final StrengthHUD strengthHUD = new StrengthHUD();
+    public static final PlayerStrengthHUD playerStrengthHUD = new PlayerStrengthHUD();
     public static final KillCooldownHUD killCooldownHUD = new KillCooldownHUD();
     public static final LastWitherHPHUD lastWitherHPHUD = new LastWitherHPHUD();
     public static final MiniPotionHUD miniPotionHUD = new MiniPotionHUD();
@@ -41,6 +42,7 @@ public final class GuiManager {
         registeredRenderers.add(fkCounterHUD);
         registeredRenderers.add(playerCompassHUD);
         registeredRenderers.add(strengthHUD);
+        registeredRenderers.add(playerStrengthHUD);
         registeredRenderers.add(killCooldownHUD);
         registeredRenderers.add(lastWitherHPHUD);
         registeredRenderers.add(miniPotionHUD);

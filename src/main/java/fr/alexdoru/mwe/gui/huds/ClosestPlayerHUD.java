@@ -51,16 +51,18 @@ public class ClosestPlayerHUD extends AbstractRenderer
         final String displayText;
         final String hpText;
         final double degrees;
-        final int rowWidth;
+        final double closestDistance;
+        final int posYDifference;
 
-        RenderRow(String teamColor, EntityPlayer player, String info, String displayText,String hpText , double degrees, int rowWidth) {
+        RenderRow(String teamColor, EntityPlayer player, String info, String displayText,String hpText , double degrees,double closestDistance,int posYDifference) {
             this.teamColor = teamColor;
             this.player = player;
             this.info = info;
             this.displayText = displayText;
             this.hpText = hpText;
             this.degrees = degrees;
-            this.rowWidth = rowWidth;
+            this.closestDistance = closestDistance;
+            this.posYDifference = posYDifference;
         }
     }
 
@@ -82,7 +84,6 @@ public class ClosestPlayerHUD extends AbstractRenderer
         }
 
         final List<RenderRow> rowsToRender = new ArrayList<>();
-        int maxWidth = 0;
 
         for (final String teamColor : teamColors) {
             double closestDistance = Double.MAX_VALUE;
@@ -100,8 +101,6 @@ public class ClosestPlayerHUD extends AbstractRenderer
             }
 
             if (closestEntity != null) {
-                final int iconSize = 10;
-                final int arrowSize = 10;
                 final List<EntityPlayer> playerEntityInRadiusList = getPlayerEntityInRadiusList(closestEntity, 16.0);
 
                 String info = teamColor + String.format("%.0f", closestDistance) + EnumChatFormatting.RESET;
@@ -118,16 +117,9 @@ public class ClosestPlayerHUD extends AbstractRenderer
                 } else {
                     posDiffText = EnumChatFormatting.YELLOW + "0";
                 }
-                DecimalFormat df = new DecimalFormat("#.0");
+
                 String displayText = posDiffText;
                 String hpText = ColorUtil.getColoredHP(EnumChatFormatting.WHITE,(int) closestEntity.getHealth()) + "" + (int) closestEntity.getHealth();
-
-                final int textXOffsetForCalc = iconSize + 4;
-                final int arrowXForCalc = textXOffsetForCalc + mc.fontRendererObj.getStringWidth(info) + 4;
-                final int rowWidth = arrowXForCalc + arrowSize + 4 + mc.fontRendererObj.getStringWidth(displayText);
-                if (rowWidth > maxWidth) {
-                    maxWidth = rowWidth;
-                }
 
                 final double deltaX = closestEntity.posX - playerX;
                 final double deltaZ = closestEntity.posZ - playerZ;
@@ -139,7 +131,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
                     degrees += 360.0;
                 }
 
-                rowsToRender.add(new RenderRow(teamColor, closestEntity, info, displayText, hpText,degrees, rowWidth));
+                rowsToRender.add(new RenderRow(teamColor, closestEntity, info, displayText, hpText,degrees,closestDistance,posYDifference));
             }
         }
 
@@ -151,7 +143,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
         int yOffset = this.guiPosition.getAbsoluteRenderY();
         final int totalHeight = rowsToRender.size() * 14;
 
-        if (MWEConfig.compassHUDBG) RenderUtil.drawRect(guiPosition.getAbsoluteRenderX() - 3,rowsToRender.size() == 1 ? guiPosition.getAbsoluteRenderY() - 1.5 : guiPosition.getAbsoluteRenderY() - 3.5,120,totalHeight,new Color(0,0,0,150));
+        if (MWEConfig.compassHUDBG) RenderUtil.drawRect(guiPosition.getAbsoluteRenderX() - 3,rowsToRender.size() == 1 ? guiPosition.getAbsoluteRenderY() - 1.5 : (rowsToRender.size() == 2 ? guiPosition.getAbsoluteRenderY() - 2.55 : guiPosition.getAbsoluteRenderY() - 4.3),120,totalHeight,new Color(0,0,0,150));
 
         for (final RenderRow row : rowsToRender) {
             final int iconSize = 10;
@@ -174,7 +166,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
             GL11.glDisable(2929);
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
-            ColorUtil.color(this.getTracerColor(row.teamColor).getRGB());
+            ColorUtil.color(getTracerColor(row.teamColor).getRGB());
             GL11.glTranslatef((float)(arrowX + arrowSize / 2), arrowY + (float) arrowSize / 2, 0.0f);
             GL11.glRotatef((float)row.degrees - 90.0f, 0.0f, 0.0f, 1.0f);
             GL11.glTranslatef((float)(-arrowSize / 2), (float)(-arrowSize / 2), 0.0f);
@@ -185,10 +177,21 @@ public class ClosestPlayerHUD extends AbstractRenderer
             GL11.glEnable(2929);
             GL11.glPopMatrix();
 
-            // Draw display text (Y-diff and health)
+            // Draw display text (Y-diff)
             mc.fontRendererObj.drawStringWithShadow(row.displayText, guiPosition.getAbsoluteRenderX() + 61, yOffset + 1.5f, -1);
 
+            //draw hp text
             mc.fontRendererObj.drawStringWithShadow(row.hpText, guiPosition.getAbsoluteRenderX() + 59 + 43, yOffset + 1.5f, -1);
+
+            //draw player warn
+            char selfColor = mc.thePlayer.getDisplayName().getFormattedText().charAt(3);
+            if (MWEConfig.playerWarn) {
+                if (selfColor != row.teamColor.charAt(1)) {
+                    if (Math.abs(row.closestDistance) < 15 && Math.abs(row.posYDifference) < 5) {
+                        mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.RED + "⚠", guiPosition.getAbsoluteRenderX() + 61 + 27,yOffset + 1.5f,-1);
+                    }
+                }
+            }
 
             yOffset += 12;
         }
@@ -210,7 +213,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
         return entityList;
     }
 
-    private static final boolean isVaildEntity(final EntityPlayer nearbyEntity, final EntityPlayer targetEntity) {
+    private static boolean isVaildEntity(final EntityPlayer nearbyEntity, final EntityPlayer targetEntity) {
         if (nearbyEntity == targetEntity) {
             return false;
         }
@@ -269,7 +272,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
                 GL11.glDisable(2929);
                 GL11.glEnable(3042);
                 GL11.glBlendFunc(770, 771);
-                ColorUtil.color(this.getTracerColor(teamColor).getRGB());
+                ColorUtil.color(getTracerColor(teamColor).getRGB());
                 GL11.glTranslatef((float)(arrowX + arrowSize / 2), arrowY + (float) arrowSize / 2, 0.0f);
                 GL11.glRotatef((float)degrees - 90.0f, 0.0f, 0.0f, 1.0f);
                 GL11.glTranslatef((float)(-arrowSize / 2), (float)(-arrowSize / 2), 0.0f);
@@ -321,7 +324,6 @@ public class ClosestPlayerHUD extends AbstractRenderer
                 break;
             }
             case '6': {
-                colorArray[0] = 255;
                 colorArray[1] = 170;
                 colorArray[2] = 0;
                 break;
@@ -338,44 +340,27 @@ public class ClosestPlayerHUD extends AbstractRenderer
             }
             case '9': {
                 colorArray[1] = (colorArray[0] = 85);
-                colorArray[2] = 255;
                 break;
             }
             case 'a': {
                 colorArray[0] = 85;
-                colorArray[1] = 255;
                 colorArray[2] = 85;
                 break;
             }
             case 'b': {
                 colorArray[0] = 85;
-                colorArray[2] = (colorArray[1] = 255);
                 break;
             }
             case 'c': {
-                colorArray[0] = 255;
                 colorArray[2] = (colorArray[1] = 85);
                 break;
             }
             case 'd': {
-                colorArray[0] = 255;
                 colorArray[1] = 85;
-                colorArray[2] = 255;
                 break;
             }
             case 'e': {
-                colorArray[1] = (colorArray[0] = 255);
                 colorArray[2] = 85;
-                break;
-            }
-            case 'f': {
-                colorArray[0] = 255;
-                colorArray[2] = (colorArray[1] = 255);
-                break;
-            }
-            case 'r': {
-                colorArray[0] = 255;
-                colorArray[2] = (colorArray[1] = 255);
                 break;
             }
         }
@@ -392,16 +377,4 @@ public class ClosestPlayerHUD extends AbstractRenderer
         dummyColorArray = new String[] { EnumChatFormatting.RED.toString(), EnumChatFormatting.GREEN.toString(), EnumChatFormatting.YELLOW.toString(), EnumChatFormatting.BLUE.toString() };
     }
 
-    public class ClosestEntity
-    {
-        public String teamColorCode;
-        public double distance;
-        public EntityPlayer playerEntity;
-
-        public ClosestEntity(final String teamColorCode, final double distance, final EntityPlayer playerEntity) {
-            this.teamColorCode = teamColorCode;
-            this.distance = distance;
-            this.playerEntity = playerEntity;
-        }
-    }
 }
