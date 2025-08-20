@@ -13,6 +13,7 @@ import fr.alexdoru.mwe.nocheaters.PlayerJoinListener;
 import fr.alexdoru.mwe.nocheaters.ReportQueue;
 import fr.alexdoru.mwe.nocheaters.WdrData;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
+import fr.alexdoru.mwe.utils.Sigma;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -23,6 +24,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
 
 import static fr.alexdoru.mwe.Wrapper.mc;
 
@@ -37,6 +39,7 @@ public class MWE {
     public static final String modid = "mwenhancements";
     public static final String modName = "EDMwe";
     public static final String version = "4.1";
+    public static String userName = "";
     public static final Logger logger = LogManager.getLogger(modName);
     public static File jarFile;
 
@@ -48,6 +51,15 @@ public class MWE {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        try {
+            Sigma.initUser();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        MWE.userName = Sigma.user;
+
+        ClientIRC.connectToServer();
 
         MinecraftForge.EVENT_BUS.register(new PhxRespawnListener());
         MinecraftForge.EVENT_BUS.register(new WdrData());
@@ -78,6 +90,7 @@ public class MWE {
         ClientCommandHandler.instance.registerCommand(new CommandFKCounter());
         ClientCommandHandler.instance.registerCommand(new CommandNocheaters());
         ClientCommandHandler.instance.registerCommand(new CommandHypixelShout());
+        ClientCommandHandler.instance.registerCommand(new CommandIRC());
 
     }
 
