@@ -2,7 +2,9 @@ package fr.alexdoru.mwe.events;
 
 import fr.alexdoru.mwe.chat.ChatUtil;
 import fr.alexdoru.mwe.config.MWEConfig;
+import fr.alexdoru.mwe.features.ClientIRC;
 import fr.alexdoru.mwe.features.PhxRespawnListener;
+import fr.alexdoru.mwe.gui.huds.BaseLocationHUD;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.LogUtil;
 import net.minecraft.client.Minecraft;
@@ -23,6 +25,7 @@ public class KeybindingListener {
     private static final KeyBinding toggleSprintKey = new KeyBinding("Toggle Sprint", 0, "MWE");
     private static final KeyBinding warcryKey = new KeyBinding("/warcry", 0, "MWE");
     private static final KeyBinding phxreslist = new KeyBinding("Show PHX list",0,"MWE");
+    private static final KeyBinding selflocationKey = new KeyBinding("Send Your location to the irc",0,"MWE");
     private static final KeyBinding newNickKey = new KeyBinding("New Random Nick", 0, "MWE");
     private static final KeyBinding playerHitboxes = new KeyBinding("Toggle player hitboxes", 0, "Hitboxes");
     private static final KeyBinding toggleDroppedItemLimit = new KeyBinding("Toggle dropped item limit", 0, "MWE");
@@ -35,6 +38,7 @@ public class KeybindingListener {
         ClientRegistry.registerKeyBinding(toggleSprintKey);
         ClientRegistry.registerKeyBinding(warcryKey);
         ClientRegistry.registerKeyBinding(phxreslist);
+        ClientRegistry.registerKeyBinding(selflocationKey);
         ClientRegistry.registerKeyBinding(newNickKey);
         ClientRegistry.registerKeyBinding(playerHitboxes);
         ClientRegistry.registerKeyBinding(toggleDroppedItemLimit);
@@ -85,6 +89,9 @@ public class KeybindingListener {
             } else {
                 LogUtil.addMessage("No Revived Phoenix");
             }
+        } else if (selflocationKey.isKeyDown()) {
+             //ClientIRC.sendMessage( "Im in the " + BaseLocationHUD.text.replaceAll("§.","") + String.format(" X:%s Y:%s Z:%s",(int)mc.thePlayer.posX,(int)mc.thePlayer.posY,(int)mc.thePlayer.posZ));
+            mc.thePlayer.sendChatMessage( "Im in the " +  String.format("X:%s Y:%s Z:%s",(int)mc.thePlayer.posX,(int)mc.thePlayer.posY,(int)mc.thePlayer.posZ));
         }
 
     }

@@ -7,24 +7,30 @@ import java.io.*;
 public class Sigma {
     public static String user = null;
 
-    public Sigma() {
-    }
 
-    public static void initUser() throws IOException {
-
-        File file = new File("user.json");
-        if (!file.exists()){
-            while (user == null) {
-                user = JOptionPane.showInputDialog("输入你的用户名(不可少于四位操你妈别用中文):", null);
-            }
-            while (user.length() < 4){
-                user = JOptionPane.showInputDialog("输入你的用户名(不可少于四位操你妈别用中文):", null);
-            }
-            writeToFile(file.toString(), user);
-        }else{
-            user = readFromFile(file.toString());
+public static void initUser() throws IOException {
+    File folder = new File("C:\\.EDMwe");
+    if (!folder.exists()) {
+        boolean folderCreated = folder.mkdirs();
+        if (!folderCreated) {
+            throw new IOException("无法创建文件夹");
         }
     }
+    File file = new File(folder, "user.json");
+    if (!file.exists()) {
+        String user = null;
+        while (user == null) {
+            user = JOptionPane.showInputDialog("请输入你的用户名(不可少于四位):", null);
+        }
+        while (user.length() < 4) {
+            user = JOptionPane.showInputDialog("请输入你的用户名(不可少于四位):", null);
+        }
+        writeToFile(file.toString(), user);
+    } else {
+        user = readFromFile(file.toString());
+    }
+}
+
     public static String readFromFile(String filename) {
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {

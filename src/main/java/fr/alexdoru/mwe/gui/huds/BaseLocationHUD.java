@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class BaseLocationHUD extends AbstractRenderer {
 
     private MegaWallsMap currentMap;
+    public static String text;
 
     public BaseLocationHUD() {
         super(MWEConfig.baseLocationHUDPosition);
@@ -22,9 +23,9 @@ public class BaseLocationHUD extends AbstractRenderer {
 
     @Override
     public void render(ScaledResolution resolution) {
-        final String text = currentMap.getPlayerBaseLocation(mc.thePlayer) + currentMap.getNearestBase(mc.thePlayer);
-        this.guiPosition.updateAdjustedAbsolutePosition(resolution, mc.fontRendererObj.getStringWidth(text), mc.fontRendererObj.FONT_HEIGHT);
-        drawCenteredString(mc.fontRendererObj, text, this.guiPosition.getAbsoluteRenderX(), this.guiPosition.getAbsoluteRenderY(), 0xFFFFFF);
+        text = currentMap.getPlayerBaseLocation(mc.thePlayer);
+        this.guiPosition.updateAdjustedAbsolutePosition(resolution, mc.fontRendererObj.getStringWidth(text  + currentMap.getNearestBase(mc.thePlayer)), mc.fontRendererObj.FONT_HEIGHT);
+        drawCenteredString(mc.fontRendererObj, text + currentMap.getNearestBase(mc.thePlayer), this.guiPosition.getAbsoluteRenderX(), this.guiPosition.getAbsoluteRenderY(), 0xFFFFFF);
     }
 
     @Override

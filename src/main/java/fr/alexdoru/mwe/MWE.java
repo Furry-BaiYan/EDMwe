@@ -36,6 +36,8 @@ import static fr.alexdoru.mwe.Wrapper.mc;
         clientSideOnly = true)
 public class MWE {
 
+    public static float ticks;
+
     public static final String modid = "mwenhancements";
     public static final String modName = "EDMwe";
     public static final String version = "4.1";
@@ -59,7 +61,8 @@ public class MWE {
 
         MWE.userName = Sigma.user;
 
-        ClientIRC.connectToServer();
+        MinecraftForge.EVENT_BUS.register(new ClientIRC()); //irc
+
 
         MinecraftForge.EVENT_BUS.register(new PhxRespawnListener());
         MinecraftForge.EVENT_BUS.register(new WdrData());
