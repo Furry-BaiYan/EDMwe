@@ -12,6 +12,7 @@ import fr.alexdoru.mwe.nocheaters.PlayerJoinListener;
 import fr.alexdoru.mwe.nocheaters.ReportQueue;
 import fr.alexdoru.mwe.nocheaters.WdrData;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
+import langyaobf.Native;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -25,6 +26,7 @@ import java.io.File;
 
 import static fr.alexdoru.mwe.Wrapper.mc;
 
+@Native
 @Mod(
         modid = MWE.modid,
         name = MWE.modName,

@@ -2,6 +2,7 @@ package fr.alexdoru.mwe.features;
 
 import fr.alexdoru.mwe.Wrapper;
 import fr.alexdoru.mwe.utils.NameUtil;
+import langyaobf.Native;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 import static fr.alexdoru.mwe.MWE.nullcheck;
 
+@Native
 public class StrengthTracker implements Wrapper {
     private static final Map<String, Long> strengthUntil = new ConcurrentHashMap<>();
 

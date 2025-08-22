@@ -10,6 +10,7 @@ import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.ColorUtil;
 import fr.alexdoru.mwe.utils.NameUtil;
 import fr.alexdoru.mwe.utils.RenderUtil;
+import langyaobf.Native;
 import net.minecraft.client.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.*;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Native
 public class ClosestPlayerHUD extends AbstractRenderer
 {
     public static ClosestPlayerHUD instance;

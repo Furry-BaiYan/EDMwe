@@ -4,6 +4,7 @@ import fr.alexdoru.mwe.MWE;
 import fr.alexdoru.mwe.Wrapper;
 import fr.alexdoru.mwe.mark.Marker;
 import fr.alexdoru.mwe.utils.LogUtil;
+import langyaobf.Native;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
@@ -33,6 +34,7 @@ import static fr.alexdoru.mwe.MWE.nullcheck;
  * @author LangYa466
  * @since 2025/1/3
  */
+@Native
 public class ClientIRC implements Wrapper {
     private static BufferedReader bufferedReader;
     private static PrintWriter out;

@@ -5,6 +5,7 @@ import fr.alexdoru.mwe.events.MegaWallsGameEvent;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.LogUtil;
 import fr.alexdoru.mwe.utils.NameUtil;
+import langyaobf.Native;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import static fr.alexdoru.mwe.MWE.nullcheck;
 
+@Native
 public class PhxRespawnListener implements Wrapper {
 
     private final List<String> phxs = new ArrayList<>();

@@ -2,11 +2,13 @@ package fr.alexdoru.mwe.gui.huds;
 
 import fr.alexdoru.mwe.config.MWEConfig;
 import fr.alexdoru.mwe.features.StrengthTracker;
+import langyaobf.Native;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.EnumChatFormatting;
 
 import static fr.alexdoru.mwe.MWE.nullcheck;
 
+@Native
 public class PlayerStrengthHUD extends AbstractRenderer {
 
     public PlayerStrengthHUD() {
