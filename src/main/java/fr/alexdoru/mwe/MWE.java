@@ -7,13 +7,11 @@ import fr.alexdoru.mwe.config.MWEConfig;
 import fr.alexdoru.mwe.events.KeybindingListener;
 import fr.alexdoru.mwe.features.*;
 import fr.alexdoru.mwe.gui.guiapi.GuiManager;
-import fr.alexdoru.mwe.gui.huds.PlayerStrengthHUD;
 import fr.alexdoru.mwe.hackerdetector.HackerDetector;
 import fr.alexdoru.mwe.nocheaters.PlayerJoinListener;
 import fr.alexdoru.mwe.nocheaters.ReportQueue;
 import fr.alexdoru.mwe.nocheaters.WdrData;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
-import fr.alexdoru.mwe.utils.Sigma;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -24,7 +22,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.io.IOException;
 
 import static fr.alexdoru.mwe.Wrapper.mc;
 
@@ -53,13 +50,9 @@ public class MWE {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        try {
-            Sigma.initUser();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        MWE.userName = Sigma.user;
+
+       // MWE.userName = Sigma.user;
 
         MinecraftForge.EVENT_BUS.register(new ClientIRC()); //irc
 

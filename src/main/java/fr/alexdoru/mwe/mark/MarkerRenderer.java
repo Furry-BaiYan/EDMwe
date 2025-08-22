@@ -80,7 +80,6 @@ public class MarkerRenderer
                         if (proximity2D < 6.0) {
                             alphaValue /= 2;
                         }
-                        LogUtil.addMessage("drawing " + markerBlockPos);
                         drawOutline(aabb, BLOCK_RGB[0], BLOCK_RGB[1], BLOCK_RGB[2], (int)(alphaValue * 0.75));
                         drawBox(aabb, BLOCK_RGB[0], BLOCK_RGB[2], BLOCK_RGB[2], (int)(alphaValue * 0.15));
                         final float bx = markerBlockPos.getX() + 0.5f;

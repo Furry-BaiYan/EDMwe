@@ -153,7 +153,6 @@ public class ClientIRC implements Wrapper {
         Matcher matcher = pattern.matcher(event.message.getUnformattedText());
 
         if (matcher.find()) {
-            LogUtil.addMessage("1");
             int x = Integer.parseInt(matcher.group(1));
             int y = Integer.parseInt(matcher.group(2));
             int z = Integer.parseInt(matcher.group(3));

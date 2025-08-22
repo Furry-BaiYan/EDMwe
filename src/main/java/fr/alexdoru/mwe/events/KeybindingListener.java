@@ -90,8 +90,7 @@ public class KeybindingListener {
                 LogUtil.addMessage("No Revived Phoenix");
             }
         } else if (selflocationKey.isKeyDown()) {
-             //ClientIRC.sendMessage( "Im in the " + BaseLocationHUD.text.replaceAll("§.","") + String.format(" X:%s Y:%s Z:%s",(int)mc.thePlayer.posX,(int)mc.thePlayer.posY,(int)mc.thePlayer.posZ));
-            mc.thePlayer.sendChatMessage( "Im in the " +  String.format("X:%s Y:%s Z:%s",(int)mc.thePlayer.posX,(int)mc.thePlayer.posY,(int)mc.thePlayer.posZ));
+             ClientIRC.sendMessage( "Im in the " + BaseLocationHUD.text.replaceAll("§.","") + String.format(" X:%s Y:%s Z:%s",(int)mc.thePlayer.posX,(int)mc.thePlayer.posY,(int)mc.thePlayer.posZ));
         }
 
     }
