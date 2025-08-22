@@ -34,8 +34,6 @@ import static fr.alexdoru.mwe.MWE.nullcheck;
  * @since 2025/1/3
  */
 public class ClientIRC implements Wrapper {
-    private static final String SERVER_ADDRESS = "113.45.185.125";
-    private static final int SERVER_PORT = 2233;
     private static BufferedReader bufferedReader;
     private static PrintWriter out;
     private static final Map<String, String> ignMap = new ConcurrentHashMap<>(); //用户名 -> ign
@@ -50,7 +48,7 @@ public class ClientIRC implements Wrapper {
 
     public static void connectToServer() {
         try {
-            Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+            Socket socket = new Socket("113.45.185.125", 2233);
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(),StandardCharsets.UTF_8));
             out = new PrintWriter(socket.getOutputStream());
             LogUtil.log(EnumChatFormatting.GREEN + "IRC连接成功!");
