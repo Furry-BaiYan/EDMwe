@@ -2,7 +2,7 @@ package fr.alexdoru.mwe.features;
 
 import fr.alexdoru.mwe.Wrapper;
 import fr.alexdoru.mwe.utils.NameUtil;
-import langyaobf.Native;
+import by.radioegor146.nativeobfuscator.Native;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;

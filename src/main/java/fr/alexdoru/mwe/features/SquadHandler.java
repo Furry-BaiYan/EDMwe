@@ -4,7 +4,7 @@ import fr.alexdoru.mwe.config.MWEConfig;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.scoreboard.ScoreboardUtils;
 import fr.alexdoru.mwe.utils.NameUtil;
-import langyaobf.Native;
+import by.radioegor146.nativeobfuscator.Native;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.player.PlayerEvent.NameFormat;

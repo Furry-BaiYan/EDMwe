@@ -13,7 +13,7 @@ import fr.alexdoru.mwe.events.MegaWallsGameEvent;
 import fr.alexdoru.mwe.utils.DateUtil;
 import fr.alexdoru.mwe.utils.DelayedTask;
 import fr.alexdoru.mwe.utils.MultithreadingUtil;
-import langyaobf.Native;
+import by.radioegor146.nativeobfuscator.Native;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.event.ClickEvent;

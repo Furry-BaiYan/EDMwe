@@ -10,7 +10,7 @@ import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.ColorUtil;
 import fr.alexdoru.mwe.utils.NameUtil;
 import fr.alexdoru.mwe.utils.RenderUtil;
-import langyaobf.Native;
+import by.radioegor146.nativeobfuscator.Native;
 import net.minecraft.client.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.*;
@@ -21,7 +21,6 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.entity.*;
 
-import java.text.DecimalFormat;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

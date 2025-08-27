@@ -1,11 +1,13 @@
 package fr.alexdoru.mwe.gui.huds;
 
+import by.radioegor146.nativeobfuscator.Native;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Native
 public class DebugScoreboardHUD {
 
     @SubscribeEvent

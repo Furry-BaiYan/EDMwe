@@ -1,4 +1,4 @@
-package langyaobf;
+package by.radioegor146.nativeobfuscator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

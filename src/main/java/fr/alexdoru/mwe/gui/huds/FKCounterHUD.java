@@ -5,6 +5,7 @@ import fr.alexdoru.mwe.features.FinalKillCounter;
 import fr.alexdoru.mwe.features.SquadHandler;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.MapUtil;
+import by.radioegor146.nativeobfuscator.Native;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.EnumChatFormatting;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+@Native
 public class FKCounterHUD extends AbstractRenderer {
 
     private static final List<String> DUMMY_TEXT = Arrays.asList(

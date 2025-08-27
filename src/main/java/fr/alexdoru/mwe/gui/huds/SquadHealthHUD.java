@@ -4,6 +4,7 @@
 
 package fr.alexdoru.mwe.gui.huds;
 
+import by.radioegor146.nativeobfuscator.Native;
 import fr.alexdoru.mwe.asm.hooks.GuiPlayerTabOverlayHook_ColoredScores;
 import fr.alexdoru.mwe.asm.hooks.NetHandlerPlayClientHook_PlayerMapTracker;
 import fr.alexdoru.mwe.asm.interfaces.NetworkPlayerInfoAccessor;
@@ -31,6 +32,7 @@ import net.minecraftforge.fml.relauncher.*;
 import com.google.common.collect.*;
 import net.minecraft.scoreboard.*;
 
+@Native
 public class SquadHealthHUD extends AbstractRenderer
 {
     public static SquadHealthHUD instance;

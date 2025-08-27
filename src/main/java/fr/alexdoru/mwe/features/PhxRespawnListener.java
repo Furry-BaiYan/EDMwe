@@ -2,16 +2,14 @@ package fr.alexdoru.mwe.features;
 
 import fr.alexdoru.mwe.Wrapper;
 import fr.alexdoru.mwe.events.MegaWallsGameEvent;
-import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.LogUtil;
 import fr.alexdoru.mwe.utils.NameUtil;
-import langyaobf.Native;
+import by.radioegor146.nativeobfuscator.Native;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 

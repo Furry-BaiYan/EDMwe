@@ -86,7 +86,7 @@ public final class GuiManager {
      * after this.mc.ingameGUI.renderGameOverlay(partialTicks) call
      */
     public static void onPostRenderGameOverlay(float partialTicks) {
-        MarkerRenderer.onRenderWorldLast(partialTicks);
+        //MarkerRenderer.onRenderWorldLast(partialTicks);
     }
 
     public static IRenderer getRendererFromPosition(GuiPosition guiPosition) {

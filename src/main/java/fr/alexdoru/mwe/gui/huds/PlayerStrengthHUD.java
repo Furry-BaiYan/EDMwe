@@ -2,7 +2,7 @@ package fr.alexdoru.mwe.gui.huds;
 
 import fr.alexdoru.mwe.config.MWEConfig;
 import fr.alexdoru.mwe.features.StrengthTracker;
-import langyaobf.Native;
+import by.radioegor146.nativeobfuscator.Native;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.EnumChatFormatting;
 
