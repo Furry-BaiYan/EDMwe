@@ -79,6 +79,36 @@ public class MWEConfig extends AbstractConfig {
     @ConfigCategory(displayname = "§aMega Walls")
     public static final String MEGA_WALLS = "Mega Walls";
 
+    @ConfigCategory(displayname = "§aItem ESP")
+    public static final String ITEM_ESP = "Item ESP";
+
+    @ConfigProperty(category = ITEM_ESP,name = "ItemTags")
+    public static boolean itemTags = true;
+    @ConfigProperty(category = ITEM_ESP,name = "ItemTag Scale %",sliderMax = 100)
+    public static int itemTagScale;
+    @ConfigProperty(category = ITEM_ESP,name = "Diamond")
+    public static boolean diamond = true;
+    @ConfigProperty(category = ITEM_ESP, name = "Diamond Sword")
+    public static boolean diamondSword = true;
+    @ConfigProperty(category = ITEM_ESP,name = "Diamond Armour", comment = "rare.")
+    public static boolean diamondArmor = true;
+    @ConfigProperty(category = ITEM_ESP,name = "Golden Apple", comment = "Loots from Hunter.")
+    public static boolean hunLoot = true;
+    @ConfigProperty(category = ITEM_ESP,name = "Phoenix's Tears", comment = "Loots from Phoenix.")
+    public static boolean phxLoot = true;
+    @ConfigProperty(category = ITEM_ESP,name = "Squid's Absorption", comment = "Loots from Squid.")
+    public static boolean squLoot = true;
+    @ConfigProperty(category = ITEM_ESP,name = "Regen-Ades", comment = "Loots from Renegade.")
+    public static boolean renLoot = true;
+    @ConfigProperty(category = ITEM_ESP,name = "Ultra Pasteurized Milk Bucket", comment = "Loots from Cow.")
+    public static boolean cowLoot = true;
+    @ConfigProperty(category = ITEM_ESP,name = "Matey Goods", comment = "Loots from Pirate.")
+    public static boolean pirLoot = true;
+    @ConfigProperty(category = ITEM_ESP,name = "Junk Apple", comment = "Loots from Moleman.")
+    public static boolean molLoot = true;
+    @ConfigProperty(category = ITEM_ESP,name = "Pumpkin Pie", comment = "Loots from Moleman.")
+    public static boolean molLoot1 = true;
+
     @ConfigCategory(displayname = "§5PVP Stuff")
     public static final String PVP_STUFF = "PVP Stuff";
 

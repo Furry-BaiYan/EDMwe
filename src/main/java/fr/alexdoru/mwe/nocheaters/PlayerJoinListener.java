@@ -12,6 +12,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+
 public class PlayerJoinListener {
 
     private long lastDeathTime;
@@ -32,6 +33,7 @@ public class PlayerJoinListener {
 
     @SubscribeEvent
     public void onPlayerJoin(EntityJoinWorldEvent event) {
+
         if (event.entity instanceof EntityPlayer) {
             try {
                 if (event.entity instanceof EntityPlayerSP) {
@@ -50,6 +52,7 @@ public class PlayerJoinListener {
                 e.printStackTrace();
             }
         }
+
     }
 
 }

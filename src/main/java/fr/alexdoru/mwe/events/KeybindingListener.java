@@ -2,7 +2,6 @@ package fr.alexdoru.mwe.events;
 
 import fr.alexdoru.mwe.chat.ChatUtil;
 import fr.alexdoru.mwe.config.MWEConfig;
-import fr.alexdoru.mwe.features.ClientIRC;
 import fr.alexdoru.mwe.features.PhxRespawnListener;
 import fr.alexdoru.mwe.gui.huds.BaseLocationHUD;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
@@ -25,12 +24,14 @@ public class KeybindingListener {
     private static final KeyBinding toggleSprintKey = new KeyBinding("Toggle Sprint", 0, "MWE");
     private static final KeyBinding warcryKey = new KeyBinding("/warcry", 0, "MWE");
     private static final KeyBinding phxreslist = new KeyBinding("Show PHX list",0,"MWE");
-    private static final KeyBinding selflocationKey = new KeyBinding("Send Your location to the irc",0,"MWE");
+    private static final KeyBinding phxrrespclist = new KeyBinding("Send PHX List to the party chat",0,"MWE");
+    private static final KeyBinding selflocationKey = new KeyBinding("Send Your location to the party chat",0,"MWE");
     private static final KeyBinding newNickKey = new KeyBinding("New Random Nick", 0, "MWE");
     private static final KeyBinding playerHitboxes = new KeyBinding("Toggle player hitboxes", 0, "Hitboxes");
     private static final KeyBinding toggleDroppedItemLimit = new KeyBinding("Toggle dropped item limit", 0, "MWE");
 
     public KeybindingListener() {
+        ClientRegistry.registerKeyBinding(phxrrespclist);
         ClientRegistry.registerKeyBinding(killKey);
         ClientRegistry.registerKeyBinding(surfaceKey);
         ClientRegistry.registerKeyBinding(echestKey);
@@ -90,7 +91,17 @@ public class KeybindingListener {
                 LogUtil.addMessage("No Revived Phoenix");
             }
         } else if (selflocationKey.isKeyDown()) {
-             ClientIRC.sendMessage( "Im in the " + BaseLocationHUD.text.replaceAll("§.","") + String.format(" X:%s Y:%s Z:%s",(int)mc.thePlayer.posX,(int)mc.thePlayer.posY,(int)mc.thePlayer.posZ));
+             if (ScoreboardTracker.isInMwGame())mc.thePlayer.sendChatMessage( "/pc Im in the " + BaseLocationHUD.text.replaceAll("§.","") + String.format(" X:%s Y:%s Z:%s",(int)mc.thePlayer.posX,(int)mc.thePlayer.posY,(int)mc.thePlayer.posZ));
+        } else if (phxrrespclist.isKeyDown()) {
+            if (!PhxRespawnListener.PHX_ALR_RES_LIST.isEmpty()) {
+                mc.thePlayer.sendChatMessage("/pc List of Revived Phoenixes: ");
+                for (String message : PhxRespawnListener.PHX_ALR_RES_LIST) {
+                    message = message.replaceAll("§.","");
+                    mc.thePlayer.sendChatMessage("/pc " + message);
+                }
+            } else {
+                mc.thePlayer.sendChatMessage("/pc No Revived Phoenix");
+            }
         }
 
     }

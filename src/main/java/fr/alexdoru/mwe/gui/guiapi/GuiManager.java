@@ -1,8 +1,6 @@
 package fr.alexdoru.mwe.gui.guiapi;
 
 import fr.alexdoru.mwe.gui.huds.*;
-import fr.alexdoru.mwe.mark.MarkerRenderer;
-import fr.alexdoru.mwe.utils.LogUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.EntityRenderer;
