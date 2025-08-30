@@ -94,9 +94,9 @@ public class MWEConfig extends AbstractConfig {
     public static boolean diamondArmor = true;
     @ConfigProperty(category = ITEM_ESP,name = "Golden Apple", comment = "Loots from Hunter.")
     public static boolean hunLoot = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Phoenix's Tears", comment = "Loots from Phoenix.")
+    @ConfigProperty(category = ITEM_ESP,name = "Phoenix's Tears", comment = "i need phx pot")
     public static boolean phxLoot = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Squid's Absorption", comment = "Loots from Squid.")
+    @ConfigProperty(category = ITEM_ESP,name = "Squid's Absorption", comment = "i need yyy")
     public static boolean squLoot = true;
     @ConfigProperty(category = ITEM_ESP,name = "Regen-Ades", comment = "Loots from Renegade.")
     public static boolean renLoot = true;
