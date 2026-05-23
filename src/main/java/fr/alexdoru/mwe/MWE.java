@@ -62,6 +62,7 @@ public class MWE {
             MinecraftForge.EVENT_BUS.register(new HackerDetector());
             MinecraftForge.EVENT_BUS.register(new LowHPIndicator());
             MinecraftForge.EVENT_BUS.register(new FinalKillCounter());
+            MinecraftForge.EVENT_BUS.register(new NameTags());
             MinecraftForge.EVENT_BUS.register(new StrengthTracker());
             MinecraftForge.EVENT_BUS.register(new ScoreboardTracker());
             MinecraftForge.EVENT_BUS.register(new PlayerJoinListener());

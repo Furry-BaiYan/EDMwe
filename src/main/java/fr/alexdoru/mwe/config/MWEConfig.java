@@ -701,6 +701,40 @@ public class MWEConfig extends AbstractConfig {
     public static boolean renderWitherOutline = true;
 
     @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Nametags",
+            name = "Nametags")
+    public static boolean nametags = false;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Nametags",
+            name = "NameTag Scale",
+            comment = "0.",
+            sliderMax = 10, sliderMin = 1)
+    public static double nametagScale = 10.0;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Nametags",
+            name = "NameTag Background")
+    public static boolean nameTagBackground = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Nametags",
+            name = "NameTag Text Shadow")
+    public static boolean nameTagShadow = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Nametags",
+            name = "FinalKill Display",
+            comment = "display player's final kill on the nametag")
+    public static boolean nameTagfinal = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Nametags",
+            name = "Phoenix Res Display",
+            comment = "display phoenix respawn on the nametag")
+    public static boolean nameTagRes = true;
+
+    @ConfigProperty(
             category = MEGA_WALLS, subCategory = "Screen",
             name = "Hide hunger title",
             comment = "Hide the hunger message that appears in the middle of the screen during deathmatch")

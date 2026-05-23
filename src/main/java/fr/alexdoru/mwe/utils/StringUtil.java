@@ -202,6 +202,28 @@ public class StringUtil {
         return new String(chars);
     }
 
+    public static String removePrefix(String str) {
+        if (str.contains("§r§e§l⚠ §r")) {
+            str = str.replace("§r§e§l⚠ §r", "");
+        }
+        if (str.contains("§r§4§l⚠ §r")) {
+            str = str.replace("§r§4§l⚠ §r", "");
+        }
+        if (str.contains("§r§6[§2S§6] §r")) {
+            str = str.replace("§r§6[§2S§6] §r", "");
+        }
+        if (str.contains("§d")) {
+            str = str.replace("§d", "");
+        }
+        if (str.contains("§o")) {
+            str = str.replace("§o", "");
+        }
+        if (str.contains("§r")) {
+            str = str.replace("§r", "");
+        }
+        return str;
+    }
+
     /**
      * On hypixel the chat messages sent by players follow the pattern:
      * <p>

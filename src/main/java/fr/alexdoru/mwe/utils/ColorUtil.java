@@ -85,4 +85,20 @@ public class ColorUtil {
         return Minecraft.getMinecraft().fontRendererObj.getColorCode(colorChar);
     }
 
+    public static int getHPColorInt(float maxHealthPoints, float healthPoints) {
+        if (healthPoints > maxHealthPoints) {
+            return 0x00AA00;
+        }
+        if (healthPoints > maxHealthPoints * 3.0f / 4.0f) {
+            return 0x55FF55;
+        }
+        if (healthPoints > maxHealthPoints / 2.0f) {
+            return 0xFFFF55;
+        }
+        if (healthPoints > maxHealthPoints / 4.0f) {
+            return 0xFF5555;
+        }
+        return 0xAA0000;
+    }
+
 }

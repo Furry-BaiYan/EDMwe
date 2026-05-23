@@ -22,7 +22,7 @@ import static fr.alexdoru.mwe.MWE.nullcheck;
 @Native
 public class PhxRespawnListener implements Wrapper {
 
-    private final List<String> phxs = new ArrayList<>();
+    public static final List<String> phxs = new ArrayList<>();
     private final List<PHXPlayer> PHX_NONE_RES_LIST = new ArrayList<>();  //没复活
     public static final List<String> PHX_ALR_RES_LIST = new ArrayList<>();   //已复活
     private boolean isTick1;
