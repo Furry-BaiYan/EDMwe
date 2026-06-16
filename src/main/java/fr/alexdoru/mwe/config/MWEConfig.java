@@ -666,6 +666,18 @@ public class MWEConfig extends AbstractConfig {
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "General",
+            name = "Detect the Potion Use",
+            comment = "Detect Potion Use in DM")
+    public static boolean potionDetector = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "General",
+            name = "Potion Counts In Tablist",
+            comment = "Render Potion Counts In Tablist")
+    public static boolean potionCountsInTabList = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "General",
             name = "Squad add halo player",
             comment = "Automatically adds to the squad the player you give your halo to")
     public static boolean squadHaloPlayer = true;
@@ -733,6 +745,12 @@ public class MWEConfig extends AbstractConfig {
             name = "Phoenix Res Display",
             comment = "display phoenix respawn on the nametag")
     public static boolean nameTagRes = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Nametags",
+            name = "Show potion used on nametags",
+            comment = "Display potion use count on nametags")
+    public static boolean showPotionUsedOnNametags = true;
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "Screen",
@@ -1008,6 +1026,7 @@ public class MWEConfig extends AbstractConfig {
             "Squad Icons In Tab Only",
             "Show Warning Icons",
             "Warning Icons In Tab Only",
+            "Potion Counts In Tablist",
             "Pink squadmates"})
     public static void refreshAllNames() {
         NameUtil.refreshAllNamesInWorld();

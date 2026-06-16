@@ -353,6 +353,10 @@ public class FinalKillCounter {
         return finals == null ? 0 : finals;
     }
 
+    public static boolean isPlayerDead(String playername) {
+        return deadPlayers.contains(playername);
+    }
+
     private static void updateNetworkPlayerinfo(String playername, int finals) {
         final NetworkPlayerInfo netInfo = NetHandlerPlayClientHook_PlayerMapTracker.getPlayerInfo(playername);
         if (netInfo instanceof NetworkPlayerInfoAccessor) {

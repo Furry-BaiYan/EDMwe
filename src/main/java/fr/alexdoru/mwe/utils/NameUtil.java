@@ -13,6 +13,7 @@ import fr.alexdoru.mwe.data.MWPlayerData;
 import fr.alexdoru.mwe.data.ScangameData;
 import fr.alexdoru.mwe.enums.MWClass;
 import fr.alexdoru.mwe.features.LeatherArmorManager;
+import fr.alexdoru.mwe.features.PotionCheck;
 import fr.alexdoru.mwe.features.SquadHandler;
 import fr.alexdoru.mwe.nocheaters.WDR;
 import fr.alexdoru.mwe.nocheaters.WarningMessages;
@@ -277,8 +278,10 @@ public class NameUtil {
                 mwClass = MWClass.fromTeamTag(ScoreboardTracker.isMWReplay() ? teamprefix : colorSuffix);
                 final boolean isobf = teamprefix.contains("§k");
                 final boolean isNicked = NameUtil.isNickedPlayer(id);
+                final int pots = PotionCheck.getUsedPotsCount(username);
+                final boolean showPots = pots > 0 && MWEConfig.potionCountsInTabList;
                 final String alias = AliasData.getAlias(isNicked ? username : uuid);
-                if (iExtraPrefix != null || isobf || isNicked || squadname != null || alias != null) {
+                if (iExtraPrefix != null || isobf || isNicked || squadname != null || alias != null || showPots) {
                     final StringBuilder sb = new StringBuilder();
                     if (iExtraPrefix != null) sb.append(extraPrefix);
                     if (isobf && MWEConfig.deobfNamesInTab) sb.append(deobfString(teamprefix));
@@ -286,6 +289,9 @@ public class NameUtil {
                     if (squadname != null) sb.append(squadname);
                     else sb.append(username);
                     sb.append(colorSuffix);
+                    if (showPots) {
+                        sb.append(EnumChatFormatting.GRAY).append(" (").append(EnumChatFormatting.LIGHT_PURPLE).append(pots).append(EnumChatFormatting.GRAY).append(")");
+                    }
                     if (isNicked && MWEConfig.showFakePlayersInTab) {
                         sb.append(EnumChatFormatting.DARK_RED).append(EnumChatFormatting.BOLD).append(" *");
                     }

@@ -43,6 +43,9 @@ public class NameTags {
                 if (MWEConfig.nameTagfinal && FinalKillCounter.getPlayersFinals(name) > 0) {
                     tag = tag + " " + EnumChatFormatting.YELLOW + FinalKillCounter.getPlayersFinals(name);
                 }
+                if (MWEConfig.showPotionUsedOnNametags && PotionCheck.getUsedPotsCount(name) > 0) {
+                    tag = tag + " " + EnumChatFormatting.LIGHT_PURPLE + PotionCheck.getUsedPotsCount(name);
+                }
             }
             if (player.getUniqueID().version() == 2 && ScoreboardTracker.isInMwGame()) {
                 RenderUtil.renderNameTag(player, distance + "§r" + player.getDisplayName().getFormattedText() + " §rLogout", 0xFFFFFF, event.partialTicks, (float) (MWEConfig.nametagScale / 10.0));

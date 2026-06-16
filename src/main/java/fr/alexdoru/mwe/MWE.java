@@ -60,6 +60,7 @@ public class MWE {
             MinecraftForge.EVENT_BUS.register(new ChatListener());
             MinecraftForge.EVENT_BUS.register(new SquadHandler());
             MinecraftForge.EVENT_BUS.register(new HackerDetector());
+            MinecraftForge.EVENT_BUS.register(new PotionCheck());
             MinecraftForge.EVENT_BUS.register(new LowHPIndicator());
             MinecraftForge.EVENT_BUS.register(new FinalKillCounter());
             MinecraftForge.EVENT_BUS.register(new NameTags());
