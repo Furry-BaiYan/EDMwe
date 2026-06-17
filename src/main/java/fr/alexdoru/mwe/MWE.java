@@ -43,6 +43,7 @@ public class MWE {
     public static String userName = "";
     public static final Logger logger = LogManager.getLogger(modName);
     public static File jarFile;
+    private final PotionCheck potionCheck = new PotionCheck();
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -60,12 +61,12 @@ public class MWE {
             MinecraftForge.EVENT_BUS.register(new ChatListener());
             MinecraftForge.EVENT_BUS.register(new SquadHandler());
             MinecraftForge.EVENT_BUS.register(new HackerDetector());
-            MinecraftForge.EVENT_BUS.register(new PotionCheck());
             MinecraftForge.EVENT_BUS.register(new LowHPIndicator());
             MinecraftForge.EVENT_BUS.register(new FinalKillCounter());
             MinecraftForge.EVENT_BUS.register(new NameTags());
             MinecraftForge.EVENT_BUS.register(new StrengthTracker());
             MinecraftForge.EVENT_BUS.register(new ScoreboardTracker());
+            MinecraftForge.EVENT_BUS.register(this.potionCheck);
             MinecraftForge.EVENT_BUS.register(new PlayerJoinListener());
             MinecraftForge.EVENT_BUS.register(new KeybindingListener());
             MinecraftForge.EVENT_BUS.register(new MegaWallsEndGameStats());

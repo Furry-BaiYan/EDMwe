@@ -69,7 +69,7 @@ public class PotionCheck {
         if (!ScoreboardTracker.isInMwGame()) {
             return;
         }
-        if (!ScoreboardTracker.isInDeathMatch()) {
+        if (!ScoreboardTracker.getParser().isDeathmatch()) {
             return;
         }
         this.detectPotionUsage();
@@ -111,7 +111,7 @@ public class PotionCheck {
                 continue;
             }
             seenUuids.add(uuid);
-            final MWClass mwClass = MWClass.ofPlayer(name);
+            final MWClass mwClass = this.getClassForPlayer(netInfo);
             final MWClassPotion potData;
             if (mwClass == null || (potData = MWClassPotion.fromClass(mwClass)) == null || potData.potionCount <= 0) {
                 continue;
@@ -122,7 +122,9 @@ public class PotionCheck {
             if (state.lastHp > 0 && currentHP > 0 && currentHP > state.lastHp && this.shouldCountPotionUse(state, hpGain = currentHP - state.lastHp, potData, currentTick)) {
                 this.processUsage(name, state, potData, currentTick);
             }
-            state.lastHp = currentHP;
+            if (currentHP > 0) {
+                state.lastHp = currentHP;
+            }
         }
         final Iterator<Map.Entry<UUID, PotionTrackState>> it = stateByUuid.entrySet().iterator();
         while (it.hasNext()) {
@@ -159,6 +161,14 @@ public class PotionCheck {
         return false;
     }
 
+    private MWClass getClassForPlayer(NetworkPlayerInfo netInfo) {
+        MWClass mwClass = MWClass.ofPlayer(netInfo.getGameProfile().getName());
+        if (mwClass == null && netInfo.getPlayerTeam() != null) {
+            mwClass = MWClass.fromTeamTag(ScoreboardTracker.isMWReplay() ? netInfo.getPlayerTeam().getColorPrefix() : netInfo.getPlayerTeam().getColorSuffix());
+        }
+        return mwClass;
+    }
+
     private void processUsage(String name, PotionTrackState state, MWClassPotion potData, int tick) {
         final int previous = state.usedPots;
         final int updated = Math.min(potData.potionCount, previous + 1);
@@ -179,8 +189,11 @@ public class PotionCheck {
         try {
             final Scoreboard sb = this.mc.theWorld.getScoreboard();
             final ScoreObjective obj = sb.getObjectiveInDisplaySlot(0);
-            if (obj != null) {
-                return sb.getValueFromObjective(netInfo.getGameProfile().getName(), obj).getScorePoints();
+            if (obj != null && sb.entityHasObjective(netInfo.getGameProfile().getName(), obj)) {
+                final int scorePoints = sb.getValueFromObjective(netInfo.getGameProfile().getName(), obj).getScorePoints();
+                if (scorePoints > 0) {
+                    return scorePoints;
+                }
             }
         } catch (Exception ignored) {
         }
