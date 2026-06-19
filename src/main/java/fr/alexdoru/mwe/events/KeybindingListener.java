@@ -3,6 +3,7 @@ package fr.alexdoru.mwe.events;
 import fr.alexdoru.mwe.chat.ChatUtil;
 import fr.alexdoru.mwe.config.MWEConfig;
 import fr.alexdoru.mwe.features.PhxRespawnListener;
+import fr.alexdoru.mwe.features.VisibleBarriers;
 import fr.alexdoru.mwe.gui.huds.BaseLocationHUD;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.LogUtil;
@@ -29,6 +30,7 @@ public class KeybindingListener {
     private static final KeyBinding newNickKey = new KeyBinding("New Random Nick", 0, "MWE");
     private static final KeyBinding playerHitboxes = new KeyBinding("Toggle player hitboxes", 0, "Hitboxes");
     private static final KeyBinding toggleDroppedItemLimit = new KeyBinding("Toggle dropped item limit", 0, "MWE");
+    private static final KeyBinding toggleBarrierVisibility = new KeyBinding("key.toggle_barrier_visibility", 48, "key.category.visible_barriers");
 
     public KeybindingListener() {
         ClientRegistry.registerKeyBinding(phxrrespclist);
@@ -43,10 +45,16 @@ public class KeybindingListener {
         ClientRegistry.registerKeyBinding(newNickKey);
         ClientRegistry.registerKeyBinding(playerHitboxes);
         ClientRegistry.registerKeyBinding(toggleDroppedItemLimit);
+        ClientRegistry.registerKeyBinding(toggleBarrierVisibility);
     }
 
     @SubscribeEvent
     public void key(KeyInputEvent e) {
+
+        if (toggleBarrierVisibility.isPressed()) {
+            VisibleBarriers.toggleVisibility();
+            return;
+        }
 
         if (mc.theWorld == null || mc.thePlayer == null) {
             return;

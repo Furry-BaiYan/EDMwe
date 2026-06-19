@@ -14,8 +14,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import static fr.alexdoru.mwe.MWE.nullcheck;
 
@@ -25,6 +27,7 @@ public class PhxRespawnListener implements Wrapper {
     public static final List<String> phxs = new ArrayList<>();
     private final List<PHXPlayer> PHX_NONE_RES_LIST = new ArrayList<>();  //没复活
     public static final List<String> PHX_ALR_RES_LIST = new ArrayList<>();   //已复活
+    private static final Set<String> RESPAWNED_NAMES = new HashSet<>();
     private boolean isTick1;
     int tick;
 
@@ -65,7 +68,7 @@ public class PhxRespawnListener implements Wrapper {
                         player.setTick2HP(hp);
                     }
                     player.setDeltaHP(player.tick1HP - player.tick2HP);
-                    if (Math.abs(player.deltaHP) > 32 && !PHX_ALR_RES_LIST.contains(player.getDisplayname())) {
+                    if (Math.abs(player.deltaHP) > 32 && RESPAWNED_NAMES.add(player.getName())) {
                         PHX_ALR_RES_LIST.add(player.getDisplayname());
                         LogUtil.addMessage(EnumChatFormatting.RED + "Player " + player.getDisplayname() + EnumChatFormatting.RED + " JUST RESPAWNED!!!!!!!!");
                         iterator.remove();
@@ -78,6 +81,7 @@ public class PhxRespawnListener implements Wrapper {
         phxs.clear();
         PHX_NONE_RES_LIST.clear();
         PHX_ALR_RES_LIST.clear();
+        RESPAWNED_NAMES.clear();
     }
 
     @SubscribeEvent
@@ -86,8 +90,7 @@ public class PhxRespawnListener implements Wrapper {
             reset();
         }
         if (event.getType() == MegaWallsGameEvent.EventType.DISCONNECT) {
-            phxs.clear();
-            PHX_NONE_RES_LIST.clear();
+            reset();
         }
     }
 
@@ -108,7 +111,11 @@ public class PhxRespawnListener implements Wrapper {
     }
 
     public static boolean isRespawned(String name) {
-        return PHX_ALR_RES_LIST.contains(name);
+        return RESPAWNED_NAMES.contains(name);
+    }
+
+    public static boolean isPhoenix(String name) {
+        return phxs.contains(name);
     }
 
     private static class PHXPlayer {

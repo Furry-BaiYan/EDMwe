@@ -10,6 +10,7 @@ import fr.alexdoru.mwe.config.lib.ConfigProperty;
 import fr.alexdoru.mwe.config.lib.ConfigPropertyEvent;
 import fr.alexdoru.mwe.config.lib.ConfigPropertyHideOverride;
 import fr.alexdoru.mwe.features.LeatherArmorManager;
+import fr.alexdoru.mwe.features.VisibleBarriers;
 import fr.alexdoru.mwe.gui.guiapi.GuiManager;
 import fr.alexdoru.mwe.gui.guiapi.GuiPosition;
 import fr.alexdoru.mwe.nocheaters.ReportQueue;
@@ -286,6 +287,17 @@ public class MWEConfig extends AbstractConfig {
             name = "Cancel Night Vision Effect",
             comment = "Removes the visual effects of night vision")
     public static boolean cancelNightVisionEffect;
+
+    @ConfigProperty(
+            category = VANILLA, subCategory = "Render",
+            name = "Visible Barriers",
+            comment = "Renders barrier blocks as translucent blocks. You can also toggle this with the Visible Barriers keybind")
+    public static boolean visibleBarriers;
+
+    @ConfigPropertyEvent(name = "Visible Barriers")
+    public static void onVisibleBarriersSetting() {
+        VisibleBarriers.refreshRenderers();
+    }
 
     @ConfigProperty(
             category = VANILLA, subCategory = "Render",

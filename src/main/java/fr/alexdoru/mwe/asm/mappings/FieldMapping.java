@@ -6,6 +6,7 @@ import static fr.alexdoru.mwe.asm.mappings.ClassMapping.*;
 
 public enum FieldMapping {
 
+    BLOCKSTATEMAPPER$SETBUILTINBLOCKS(BLOCKSTATEMAPPER, "b", "setBuiltInBlocks", "Ljava/util/Set;"),
     CLIENTCOMMANDHANDLER$INSTANCE(CLIENTCOMMANDHANDLER, "instance", CLIENTCOMMANDHANDLER),
     ENTITYARROW$ISINGROUND(ENTITYARROW, "i", "inGround", "Z"),
     ENTITYARROW$PINNEDTOPLAYER(ENTITYARROW, "pinnedToPlayer", "Z"),

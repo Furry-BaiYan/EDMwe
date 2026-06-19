@@ -29,6 +29,9 @@ public class MWEClassTransformer implements IClassTransformer {
     private final HashMap<String, List<MWETransformer>> transformers = new HashMap<>();
 
     public MWEClassTransformer() {
+        register(new BarrierTransformer_VisibleBarriers());
+        register(new BlockBarrierTransformer_VisibleBarriers());
+        register(new BlockStateMapperTransformer_VisibleBarriers());
         register(new C08PacketPlayerBlockPlacementTransformer());
         register(new ChatComponentStyleTransformer_ChatHeads());
         register(new ChatComponentTextTransformer_ChatHeads());
@@ -71,6 +74,7 @@ public class MWEClassTransformer implements IClassTransformer {
         register(new GuiPlayerTabOverlayTransformer_HidePing());
         register(new GuiPlayerTabOverlayTransformer_LongerTab());
         register(new GuiPlayerTabOverlayTransformer_PlayerCount());
+        register(new GuiPlayerTabOverlayTransformer_PhxRespawnIcons());
         register(new GuiScreenBookTransformer_NewNickKey());
         register(new GuiScreenTransformer_CustomChatClickEvent());
         register(new GuiUtilRenderComponentsTransformer_ChatHeads());
