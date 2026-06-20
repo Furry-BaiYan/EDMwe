@@ -182,17 +182,7 @@ public class ClosestPlayerHUD extends AbstractRenderer
             mc.fontRendererObj.drawStringWithShadow(row.displayText, guiPosition.getAbsoluteRenderX() + 61, yOffset + 1.5f, -1);
 
             //draw hp text
-            mc.fontRendererObj.drawStringWithShadow(row.hpText, guiPosition.getAbsoluteRenderX() + 59 + 43, yOffset + 1.5f, -1);
-
-            //draw player warn
-            char selfColor = mc.thePlayer.getDisplayName().getFormattedText().charAt(3);
-            if (MWEConfig.playerWarn) {
-                if (selfColor != row.teamColor.charAt(1)) {
-                    if (Math.abs(row.closestDistance) < 15 && Math.abs(row.posYDifference) < 5) {
-                        mc.fontRendererObj.drawStringWithShadow(EnumChatFormatting.RED + "⚠", guiPosition.getAbsoluteRenderX() + 61 + 27,yOffset + 1.5f,-1);
-                    }
-                }
-            }
+            mc.fontRendererObj.drawStringWithShadow(row.hpText, guiPosition.getAbsoluteRenderX() + 61 + 27, yOffset + 1.5f, -1);
 
             yOffset += 12;
         }

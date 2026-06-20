@@ -1,5 +1,6 @@
 package fr.alexdoru.mwe.asm.hooks;
 
+import fr.alexdoru.mwe.enums.MWClass;
 import fr.alexdoru.mwe.features.PhxRespawnListener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -20,7 +21,7 @@ public final class GuiPlayerTabOverlayHook_PhxRespawnIcons {
     }
 
     public static String addIconSpacing(String playerName, NetworkPlayerInfo playerInfo) {
-        if (playerName == null || playerInfo == null || !PhxRespawnListener.isPhoenix(playerInfo.getGameProfile().getName())) {
+        if (playerName == null || playerInfo == null || !isPhoenix(playerInfo)) {
             return playerName;
         }
         final int phxTagEnd = getPhxTagEnd(playerName);
@@ -35,7 +36,7 @@ public final class GuiPlayerTabOverlayHook_PhxRespawnIcons {
             return;
         }
         final String profileName = playerInfo.getGameProfile().getName();
-        if (!PhxRespawnListener.isPhoenix(profileName)) {
+        if (!isPhoenix(playerInfo)) {
             return;
         }
         final int phxTagEnd = getPhxTagEnd(playerName);
@@ -56,7 +57,32 @@ public final class GuiPlayerTabOverlayHook_PhxRespawnIcons {
     }
 
     private static int getPhxTagEnd(String playerName) {
-        final int phxTagStart = playerName.indexOf(PHX_TAG);
-        return phxTagStart < 0 ? -1 : phxTagStart + PHX_TAG.length();
+        int matchedCharacters = 0;
+        for (int i = 0; i < playerName.length(); i++) {
+            final char current = playerName.charAt(i);
+            if (current == '\u00A7' && i + 1 < playerName.length()) {
+                i++;
+                continue;
+            }
+
+            final char normalized = Character.toUpperCase(current);
+            if (normalized == PHX_TAG.charAt(matchedCharacters)) {
+                matchedCharacters++;
+                if (matchedCharacters == PHX_TAG.length()) {
+                    return i + 1;
+                }
+            } else {
+                matchedCharacters = normalized == PHX_TAG.charAt(0) ? 1 : 0;
+            }
+        }
+        return -1;
+    }
+
+    private static boolean isPhoenix(NetworkPlayerInfo playerInfo) {
+        final String name = playerInfo.getGameProfile().getName();
+        if (PhxRespawnListener.isPhoenix(name)) {
+            return true;
+        }
+        return playerInfo.getPlayerTeam() != null && MWClass.fromTeamTag(playerInfo.getPlayerTeam().getColorSuffix()) == MWClass.PHOENIX;
     }
 }
