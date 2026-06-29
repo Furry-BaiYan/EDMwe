@@ -1,9 +1,5 @@
-package fr.alexdoru.mwe.asm.hooks;
+package fr.alexdoru.mwe.features;
 
-import fr.alexdoru.mwe.config.MWEConfig;
-import fr.alexdoru.mwe.utils.TimerUtil;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -11,28 +7,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+public final class RenegadeArrowTracker {
 
-public class RenderPlayerHook_RenegadeArrowCount {
-
-    private static final TimerUtil timer = new TimerUtil(1000L);
-    private static final HashMap<String, List<Long>> arrowHitMap = new HashMap<>();
-
-    @SuppressWarnings("unused")
-    public static StringBuilder getArrowCount(StringBuilder str, AbstractClientPlayer entityIn) {
-        if (MWEConfig.renegadeArrowCount) {
-            final List<Long> list = arrowHitMap.get(entityIn.getName());
-            if (list == null || list.isEmpty()) {
-                return str;
-            }
-            return str.append(EnumChatFormatting.RESET).append("  ").append(list.size()).append(EnumChatFormatting.GREEN).append(" ➹");
-        }
-        return str;
-    }
+    private final Map<String, List<Long>> arrowHitMap = new HashMap<>();
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START || !timer.update() || arrowHitMap.isEmpty()) {
+        if (event.phase == TickEvent.Phase.START || arrowHitMap.isEmpty()) {
             return;
         }
         final long currentTime = System.currentTimeMillis();
@@ -51,7 +34,8 @@ public class RenderPlayerHook_RenegadeArrowCount {
         }
     }
 
-    public static void addArrowOnPlayer(String playername, long timeOfHit, int currentAmountOfArrows) {
+    public void addArrowOnPlayer(String playername, int currentAmountOfArrows) {
+        final long timeOfHit = System.currentTimeMillis();
         final List<Long> list = arrowHitMap.get(playername);
         if (list == null) {
             final List<Long> newlist = new ArrayList<>();
@@ -68,7 +52,7 @@ public class RenderPlayerHook_RenegadeArrowCount {
         }
     }
 
-    public static void removeArrowsFrom(String playername, int arrowAmount) {
+    public void removeArrowsFrom(String playername, int arrowAmount) {
         if (arrowAmount < 0) {
             arrowHitMap.remove(playername);
             return;
@@ -86,6 +70,10 @@ public class RenderPlayerHook_RenegadeArrowCount {
             list.remove(i);
             removed++;
         }
+    }
+
+    public List<Long> getArrowsForPlayer(String playername) {
+        return arrowHitMap.get(playername);
     }
 
 }

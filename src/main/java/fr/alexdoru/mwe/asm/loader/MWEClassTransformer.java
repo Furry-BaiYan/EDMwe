@@ -96,6 +96,7 @@ public class MWEClassTransformer implements IClassTransformer {
         register(new NetworkPlayerInfoTransformer_CustomTab());
         register(new RendererLivingEntityTransformer_HitColor());
         register(new RendererLivingEntityTransformer_ColorOutlines());
+        register(new RendererLivingEntityTransformer_Renegade());
         register(new RenderGlobalTransformer_EntityOutlines());
         register(new RenderGlobalTransformer_ListenDestroyedBlocks());
         register(new RenderManagerTransformer_Accessor());

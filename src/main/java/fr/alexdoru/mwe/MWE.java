@@ -1,6 +1,5 @@
 package fr.alexdoru.mwe;
 
-import fr.alexdoru.mwe.asm.hooks.RenderPlayerHook_RenegadeArrowCount;
 import fr.alexdoru.mwe.chat.ChatListener;
 import fr.alexdoru.mwe.commands.*;
 import fr.alexdoru.mwe.config.MWEConfig;
@@ -36,6 +35,7 @@ import static fr.alexdoru.mwe.Wrapper.mc;
 public class MWE {
 
     public static float ticks;
+    private static MWE INSTANCE;
 
     public static final String modid = "mwenhancements";
     public static final String modName = "EDMwe";
@@ -44,6 +44,11 @@ public class MWE {
     public static final Logger logger = LogManager.getLogger(modName);
     public static File jarFile;
     private final PotionCheck potionCheck = new PotionCheck();
+    private RenegadeArrowTracker renegadeTracker;
+
+    public MWE() {
+        INSTANCE = this;
+    }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -53,6 +58,8 @@ public class MWE {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+            this.renegadeTracker = new RenegadeArrowTracker();
+            MinecraftForge.EVENT_BUS.register(this.renegadeTracker);
             MinecraftForge.EVENT_BUS.register(new PhxRespawnListener());
             MinecraftForge.EVENT_BUS.register(new WdrData());
             MinecraftForge.EVENT_BUS.register(new GuiManager());
@@ -67,7 +74,6 @@ public class MWE {
             MinecraftForge.EVENT_BUS.register(new PlayerJoinListener());
             MinecraftForge.EVENT_BUS.register(new KeybindingListener());
             MinecraftForge.EVENT_BUS.register(new MegaWallsEndGameStats());
-            MinecraftForge.EVENT_BUS.register(new RenderPlayerHook_RenegadeArrowCount());
 
             ClientCommandHandler.instance.registerCommand(new CommandMWE());
             ClientCommandHandler.instance.registerCommand(new CommandWDR());
@@ -90,5 +96,13 @@ public class MWE {
     public static boolean nullcheck() {
         return mc.thePlayer == null || mc.theWorld == null;
     } //?
+
+    public static MWE INSTANCE() {
+        return INSTANCE;
+    }
+
+    public RenegadeArrowTracker getRenegadeTracker() {
+        return this.renegadeTracker;
+    }
 
 }

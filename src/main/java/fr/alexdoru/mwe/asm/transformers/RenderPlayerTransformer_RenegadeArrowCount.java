@@ -27,10 +27,10 @@ public class RenderPlayerTransformer_RenegadeArrowCount implements MWETransforme
                                 // Replaces line 154 :
                                 // this.renderLivingLabel(entityIn, score.getScorePoints() + " " + scoreobjective.getDisplayName(), x, y, z, 64);
                                 // With :
-                                // this.renderLivingLabel(entityIn, score.getScorePoints() + " " + scoreobjective.getDisplayName() + RenderPlayerHook_RenegadeArrowCount.getArrowCount(entityIn), x, y, z, 64);
+                                // this.renderLivingLabel(entityIn, score.getScorePoints() + " " + scoreobjective.getDisplayName() + RenderHook_Renegade.appendToScore(entityIn), x, y, z, 64);
                                 final InsnList list = new InsnList();
                                 list.add(new VarInsnNode(ALOAD, 1));
-                                list.add(new MethodInsnNode(INVOKESTATIC, getHookClass("RenderPlayerHook_RenegadeArrowCount"), "getArrowCount", "(Ljava/lang/StringBuilder;L" + ClassMapping.ABSTRACTCLIENTPLAYER + ";)Ljava/lang/StringBuilder;", false));
+                                list.add(new MethodInsnNode(INVOKESTATIC, getHookClass("RenderHook_Renegade"), "appendToScore", "(Ljava/lang/StringBuilder;L" + ClassMapping.ABSTRACTCLIENTPLAYER + ";)Ljava/lang/StringBuilder;", false));
                                 methodNode.instructions.insert(secondNode, list);
                                 status.addInjection();
                             }
