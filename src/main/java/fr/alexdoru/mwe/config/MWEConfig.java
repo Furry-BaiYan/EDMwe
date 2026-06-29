@@ -80,36 +80,6 @@ public class MWEConfig extends AbstractConfig {
     @ConfigCategory(displayname = "§aMega Walls")
     public static final String MEGA_WALLS = "Mega Walls";
 
-    @ConfigCategory(displayname = "§aItem ESP")
-    public static final String ITEM_ESP = "Item ESP";
-
-    @ConfigProperty(category = ITEM_ESP,name = "ItemTags")
-    public static boolean itemTags = true;
-    @ConfigProperty(category = ITEM_ESP,name = "ItemTag Scale %",sliderMax = 100)
-    public static int itemTagScale;
-    @ConfigProperty(category = ITEM_ESP,name = "Diamond")
-    public static boolean diamond = true;
-    @ConfigProperty(category = ITEM_ESP, name = "Diamond Sword")
-    public static boolean diamondSword = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Diamond Armour", comment = "rare.")
-    public static boolean diamondArmor = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Golden Apple", comment = "Loots from Hunter.")
-    public static boolean hunLoot = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Phoenix's Tears", comment = "i need phx pot")
-    public static boolean phxLoot = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Squid's Absorption", comment = "i need yyy")
-    public static boolean squLoot = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Regen-Ades", comment = "Loots from Renegade.")
-    public static boolean renLoot = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Ultra Pasteurized Milk Bucket", comment = "Loots from Cow.")
-    public static boolean cowLoot = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Matey Goods", comment = "Loots from Pirate.")
-    public static boolean pirLoot = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Junk Apple", comment = "Loots from Moleman.")
-    public static boolean molLoot = true;
-    @ConfigProperty(category = ITEM_ESP,name = "Pumpkin Pie", comment = "Loots from Moleman.")
-    public static boolean molLoot1 = true;
-
     @ConfigCategory(displayname = "§5PVP Stuff")
     public static final String PVP_STUFF = "PVP Stuff";
 
@@ -725,46 +695,6 @@ public class MWEConfig extends AbstractConfig {
     public static boolean renderWitherOutline = true;
 
     @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "Nametags",
-            name = "Nametags")
-    public static boolean nametags = false;
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "Nametags",
-            name = "NameTag Scale",
-            comment = "0.",
-            sliderMax = 10, sliderMin = 1)
-    public static double nametagScale = 10.0;
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "Nametags",
-            name = "NameTag Background")
-    public static boolean nameTagBackground = true;
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "Nametags",
-            name = "NameTag Text Shadow")
-    public static boolean nameTagShadow = true;
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "Nametags",
-            name = "FinalKill Display",
-            comment = "display player's final kill on the nametag")
-    public static boolean nameTagfinal = true;
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "Nametags",
-            name = "Phoenix Res Display",
-            comment = "display phoenix respawn on the nametag")
-    public static boolean nameTagRes = true;
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "Nametags",
-            name = "Show potion used on nametags",
-            comment = "Display potion use count on nametags")
-    public static boolean showPotionUsedOnNametags = true;
-
-    @ConfigProperty(
             category = MEGA_WALLS, subCategory = "Screen",
             name = "Hide hunger title",
             comment = "Hide the hunger message that appears in the middle of the screen during deathmatch")
@@ -810,12 +740,6 @@ public class MWEConfig extends AbstractConfig {
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "HUD",
-            name = "Player Strength HUD",
-            comment = "Displays players that have strength.")
-    public static final GuiPosition playerStrengthHUD = new GuiPosition(true, 0.5d, 8d / 20d);
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "HUD",
             name = "Creeper primed TNT HUD",
             comment = "Displays the cooldown of primed TNT when playing Creeper")
     public static final GuiPosition creeperTNTHUDPosition = new GuiPosition(true, 0.5d, 8d / 20d);
@@ -825,6 +749,24 @@ public class MWEConfig extends AbstractConfig {
             name = "Energy display HUD",
             comment = "Displays a HUD with the amount of energy you have. Turns a different color when your energy level exceeds the amount set below.")
     public static final GuiPosition energyHUDPosition = new GuiPosition(true, 0.5d, 10.5 / 20d);
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "HUD",
+            name = "Skill Cooldown HUD",
+            comment = "Displays the Mega Walls SKILL cooldown actionbar text as a movable HUD")
+    public static final GuiPosition skillCooldownHUDPosition = new GuiPosition(true, 0.5d, 0.875d);
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "HUD",
+            name = "Skill Cooldown HUD Text Color",
+            isColor = true)
+    public static int skillCooldownHUDTextColor = 0x55FFFF;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "HUD",
+            name = "Skill Cooldown HUD Status Color",
+            isColor = true)
+    public static int skillCooldownHUDStatusColor = 0x55FF55;
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "HUD",

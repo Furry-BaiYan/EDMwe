@@ -53,6 +53,7 @@ public enum MethodMapping {
     GUIINGAME$GETFONTRENDERER(INVOKEVIRTUAL, GUIINGAME, "f", "getFontRenderer", "()L" + FONTRENDERER + ";"),
     GUIINGAME$RENDERGAMEOVERLAY(INVOKEVIRTUAL, GUIINGAME, "a", "renderGameOverlay", "(F)V"),
     GUIINGAME$RENDERSCOREBOARD("a", "renderScoreboard", "(L" + SCOREOBJECTIVE + ";L" + SCALEDRESOLUTION + ";)V"),
+    GUIINGAME$SETRECORDPLAYING_STRING("a", "setRecordPlaying", "(Ljava/lang/String;Z)V"),
     GUIINGAMEFORGE$RENDERRECORDOVERLAY(INVOKEVIRTUAL, GUIINGAMEFORGE, "renderRecordOverlay", "(IIF)V"),
     GUINEWCHAT$CLEARCHATMESSAGES("a", "clearChatMessages", "()V"),
     GUINEWCHAT$DELETECHATLINE("c", "deleteChatLine", "(I)V"),

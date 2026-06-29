@@ -429,8 +429,6 @@ public class FinalKillCounter {
         } else {
             return;
         }
-        StrengthTracker.onKill(killer);
-
         final EntityPlayer player = NameUtil.getPlayerEntityByName(killer);
         if (player == null) {
             return;

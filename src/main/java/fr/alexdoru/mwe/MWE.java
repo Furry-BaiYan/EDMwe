@@ -53,7 +53,6 @@ public class MWE {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new ItemTags());
             MinecraftForge.EVENT_BUS.register(new PhxRespawnListener());
             MinecraftForge.EVENT_BUS.register(new WdrData());
             MinecraftForge.EVENT_BUS.register(new GuiManager());
@@ -63,8 +62,6 @@ public class MWE {
             MinecraftForge.EVENT_BUS.register(new HackerDetector());
             MinecraftForge.EVENT_BUS.register(new LowHPIndicator());
             MinecraftForge.EVENT_BUS.register(new FinalKillCounter());
-            MinecraftForge.EVENT_BUS.register(new NameTags());
-            MinecraftForge.EVENT_BUS.register(new StrengthTracker());
             MinecraftForge.EVENT_BUS.register(new ScoreboardTracker());
             MinecraftForge.EVENT_BUS.register(this.potionCheck);
             MinecraftForge.EVENT_BUS.register(new PlayerJoinListener());

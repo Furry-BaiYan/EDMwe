@@ -60,6 +60,7 @@ public class MWEClassTransformer implements IClassTransformer {
         register(new GuiIngameForgeTransformer_FixActionBar());
         register(new GuiIngameTransformer_CancelHunger());
         register(new GuiIngameTransformer_CustomSidebarLines());
+        register(new GuiIngameTransformer_SkillCooldownHUD());
         register(new GuiNewChatTransformer_Accessor());
         register(new GuiNewChatTransformer_ChatHeads());
         register(new GuiNewChatTransformer_CleanChatLogs());

@@ -22,7 +22,6 @@ public final class GuiManager {
     public static final FKCounterHUD fkCounterHUD = new FKCounterHUD();
     public static final ClosestPlayerHUD playerCompassHUD = new ClosestPlayerHUD();
     public static final StrengthHUD strengthHUD = new StrengthHUD();
-    public static final PlayerStrengthHUD playerStrengthHUD = new PlayerStrengthHUD();
     public static final KillCooldownHUD killCooldownHUD = new KillCooldownHUD();
     public static final LastWitherHPHUD lastWitherHPHUD = new LastWitherHPHUD();
     public static final MiniPotionHUD miniPotionHUD = new MiniPotionHUD();
@@ -30,6 +29,7 @@ public final class GuiManager {
     public static final PhoenixBondHUD phoenixBondHUD = new PhoenixBondHUD();
     public static final PotionHUD potionHUD = new PotionHUD();
     public static final SpeedHUD speedHUD = new SpeedHUD();
+    public static final SkillCooldownHUD skillCooldownHUD = new SkillCooldownHUD();
     public static final SquadHealthHUD squadHealthHUD = new SquadHealthHUD();
     public static final WarcryHUD warcryHUD = new WarcryHUD();
 
@@ -42,7 +42,6 @@ public final class GuiManager {
         registeredRenderers.add(fkCounterHUD);
         registeredRenderers.add(playerCompassHUD);
         registeredRenderers.add(strengthHUD);
-        registeredRenderers.add(playerStrengthHUD);
         registeredRenderers.add(killCooldownHUD);
         registeredRenderers.add(lastWitherHPHUD);
         registeredRenderers.add(miniPotionHUD);
@@ -50,6 +49,7 @@ public final class GuiManager {
         registeredRenderers.add(phoenixBondHUD);
         registeredRenderers.add(potionHUD);
         registeredRenderers.add(speedHUD);
+        registeredRenderers.add(skillCooldownHUD);
         registeredRenderers.add(squadHealthHUD);
         registeredRenderers.add(warcryHUD);
         registeredRenderers.trimToSize();
