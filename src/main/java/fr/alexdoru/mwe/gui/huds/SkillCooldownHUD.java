@@ -29,7 +29,7 @@ public class SkillCooldownHUD extends AbstractRenderer {
             currentStatus = skillStatus;
             showUntil = System.currentTimeMillis() + DISPLAY_DURATION_MS;
         }
-        return removeVisibleSkillSegment(text, stripped);
+        return text;
     }
 
     private static String getSkillStatus(String strippedText) {
@@ -46,44 +46,6 @@ public class SkillCooldownHUD extends AbstractRenderer {
             statusEnd++;
         }
         return statusStart < statusEnd ? strippedText.substring(statusStart, statusEnd) : "";
-    }
-
-    private static String removeVisibleSkillSegment(String formattedText, String strippedText) {
-        final int skillVisibleStart = strippedText.indexOf(LABEL);
-        if (skillVisibleStart < 0) {
-            return formattedText;
-        }
-        int visibleEnd = skillVisibleStart + LABEL.length();
-        while (visibleEnd < strippedText.length() && Character.isWhitespace(strippedText.charAt(visibleEnd))) {
-            visibleEnd++;
-        }
-        while (visibleEnd < strippedText.length() && !Character.isWhitespace(strippedText.charAt(visibleEnd))) {
-            visibleEnd++;
-        }
-        while (visibleEnd < strippedText.length() && Character.isWhitespace(strippedText.charAt(visibleEnd))) {
-            visibleEnd++;
-        }
-        int rawStart = getRawIndexForVisibleIndex(formattedText, skillVisibleStart);
-        while (rawStart >= 2 && formattedText.charAt(rawStart - 2) == '\u00a7') {
-            rawStart -= 2;
-        }
-        final int rawEnd = getRawIndexForVisibleIndex(formattedText, visibleEnd);
-        return (formattedText.substring(0, rawStart) + formattedText.substring(rawEnd)).trim();
-    }
-
-    private static int getRawIndexForVisibleIndex(String formattedText, int visibleIndex) {
-        int visibleCount = 0;
-        for (int rawIndex = 0; rawIndex < formattedText.length(); rawIndex++) {
-            if (formattedText.charAt(rawIndex) == '\u00a7' && rawIndex + 1 < formattedText.length()) {
-                rawIndex++;
-                continue;
-            }
-            if (visibleCount == visibleIndex) {
-                return rawIndex;
-            }
-            visibleCount++;
-        }
-        return formattedText.length();
     }
 
     @Override
