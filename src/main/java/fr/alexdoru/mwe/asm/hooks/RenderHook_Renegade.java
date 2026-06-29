@@ -61,7 +61,7 @@ public class RenderHook_Renegade {
         if (MWEConfig.phxRespawnIconsOnNametags && ScoreboardTracker.isInDeathMatch()) {
             original = appendPhxRespawnIcon(original, entity);
         }
-        if (MWEConfig.potionDetector && MWEConfig.potionCountsOnNametags) {
+        if (MWEConfig.potionDetector && MWEConfig.potionCountsOnNametags && ScoreboardTracker.isInDeathMatch()) {
             original = appendPotionCountTag(original, entity);
         }
         return original;
@@ -107,11 +107,11 @@ public class RenderHook_Renegade {
         if (mwClass == null) {
             return original;
         }
-        final int remainingPots = PotionCheck.getRemainingPotsCount(player.getName(), mwClass);
-        if (remainingPots < 0) {
+        final int usedPots = PotionCheck.getUsedPotsCount(player.getName());
+        if (usedPots <= 0) {
             return original;
         }
-        return original + EnumChatFormatting.GRAY + POTION_TAG_PREFIX + EnumChatFormatting.LIGHT_PURPLE + remainingPots + EnumChatFormatting.GRAY + ")" + EnumChatFormatting.RESET;
+        return original + EnumChatFormatting.GRAY + POTION_TAG_PREFIX + EnumChatFormatting.LIGHT_PURPLE + usedPots + EnumChatFormatting.GRAY + ")" + EnumChatFormatting.RESET;
     }
 
     private static boolean isPhoenixByTeam(EntityPlayer player) {
