@@ -90,10 +90,10 @@ public class ScoreboardParser {
     private void parseMegaWallsScoreboard(Scoreboard scoreboard, String teamColor) {
         final List<String> formattedLines = ScoreboardUtils.getFormattedSidebarText(scoreboard);
         final List<String> cleanLines = ScoreboardUtils.stripControlCodes(formattedLines);
-        final List<String> witherLines = new ArrayList<>();
-        if (cleanLines.size() < 10) {
+        if (cleanLines.isEmpty()) {
             return;
         }
+        final List<String> witherLines = new ArrayList<>();
 
         for (String s : formattedLines) {
             String unformat = s.replaceAll("§.", "");
@@ -103,23 +103,34 @@ public class ScoreboardParser {
             isInDeathMatch = witherLines.isEmpty();
         }
 
-        if (MW_INGAME_PATTERN.matcher(cleanLines.get(9)).find()) {
-            isInMwGame = true;
-            final Matcher gameIDMatcher = GAME_ID_PATTERN.matcher(cleanLines.get(0));
+        boolean hasGameInfo = false;
+        for (final String line : cleanLines) {
+            final Matcher gameIDMatcher = GAME_ID_PATTERN.matcher(line);
             if (gameIDMatcher.find()) {
                 gameId = gameIDMatcher.group(1);
+                hasGameInfo = true;
             }
-        } else {
-            for (final String line : cleanLines) {
-                if (PREGAME_LOBBY_PATTERN.matcher(line).find()) {
-                    isPreGameLobby = true;
-                    return;
-                }
+            if (MW_INGAME_PATTERN.matcher(line).find() || GAME_END_PATTERN.matcher(line).find() || WALLS_FALL_PATTERN.matcher(line).find() || GATES_OPEN_PATTERN.matcher(line).find()) {
+                hasGameInfo = true;
+            }
+            if (PREGAME_LOBBY_PATTERN.matcher(line).find()) {
+                isPreGameLobby = true;
+                isInDeathMatch = false;
+                return;
             }
         }
 
-        this.parseMWTimeLine(cleanLines.get(1));
+        isInMwGame = hasGameInfo;
+        if (!isInMwGame) {
+            isInDeathMatch = false;
+            return;
+        }
+
+        for (final String line : cleanLines) {
+            this.parseMWTimeLine(line);
+        }
         this.parseWitherAndTeamsLines(teamColor, cleanLines, formattedLines);
+        isInDeathMatch = aliveWithers.isEmpty();
     }
 
     private void parseMWTimeLine(String gameTimeLine) {
@@ -163,7 +174,7 @@ public class ScoreboardParser {
         int eliminatedTeams = 0;
         int witherHP = 1000;
 
-        for (int i = 3; i < 7; i++) {
+        for (int i = 0; i < cleanLines.size() && i < formattedLines.size(); i++) {
 
             final String line = cleanLines.get(i);
             /*Wither alive detection*/
@@ -232,7 +243,7 @@ public class ScoreboardParser {
     }
 
     public boolean isDeathmatch() {
-        return aliveWithers.isEmpty();
+        return isInDeathMatch;
     }
 
     public boolean hasGameEnded() {

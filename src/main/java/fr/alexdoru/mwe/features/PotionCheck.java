@@ -196,11 +196,14 @@ public class PotionCheck {
     private int getHealthFromTablist(NetworkPlayerInfo netInfo) {
         try {
             final Scoreboard sb = this.mc.theWorld.getScoreboard();
-            final ScoreObjective obj = sb.getObjectiveInDisplaySlot(0);
-            if (obj != null && sb.entityHasObjective(netInfo.getGameProfile().getName(), obj)) {
-                final int scorePoints = sb.getValueFromObjective(netInfo.getGameProfile().getName(), obj).getScorePoints();
-                if (scorePoints > 0) {
-                    return scorePoints;
+            final int[] displaySlots = {0, 2};
+            for (final int displaySlot : displaySlots) {
+                final ScoreObjective obj = sb.getObjectiveInDisplaySlot(displaySlot);
+                if (obj != null && sb.entityHasObjective(netInfo.getGameProfile().getName(), obj)) {
+                    final int scorePoints = sb.getValueFromObjective(netInfo.getGameProfile().getName(), obj).getScorePoints();
+                    if (scorePoints > 0) {
+                        return scorePoints;
+                    }
                 }
             }
         } catch (Exception ignored) {
