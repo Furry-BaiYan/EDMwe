@@ -26,6 +26,7 @@ public enum MethodMapping {
     ENTITY$SETROTATIONYAWHEAD("f", "setRotationYawHead", "(F)V"),
     ENTITYFX$RENDERPARTICLE("a", "renderParticle", "(L" + WORLDRENDERER + ";L" + ENTITY + ";FFFFFF)V"),
     ENTITYLIVINGBASE$GETDISPLAYNAME(INVOKEVIRTUAL, ENTITYLIVINGBASE, "f_", "getDisplayName", "()L" + ICHATCOMPONENT + ";"),
+    ENTITYPLAYER$GETDISPLAYNAME("f_", "getDisplayName", "()L" + ICHATCOMPONENT + ";"),
     ENTITYLIVINGBASE$ISPOTIONACTIVE("a", "isPotionActive", "(L" + POTION + ";)Z"),
     ENTITYPLAYER$ONUPDATE("t_", "onUpdate", "()V"),
     ENTITYPLAYERSP$DROPONEITEM(INVOKEVIRTUAL, ENTITYPLAYERSP, "a", "dropOneItem", "(Z)L" + ENTITYITEM + ";"),

@@ -2,6 +2,7 @@ package fr.alexdoru.mwe.asm.hooks;
 
 import fr.alexdoru.mwe.enums.MWClass;
 import fr.alexdoru.mwe.features.PhxRespawnListener;
+import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -21,7 +22,7 @@ public final class GuiPlayerTabOverlayHook_PhxRespawnIcons {
     }
 
     public static String addIconSpacing(String playerName, NetworkPlayerInfo playerInfo) {
-        if (playerName == null || playerInfo == null || !isPhoenix(playerInfo)) {
+        if (playerName == null || playerInfo == null || !ScoreboardTracker.isInDeathMatch() || !isPhoenix(playerInfo)) {
             return playerName;
         }
         final int phxTagEnd = getPhxTagEnd(playerName);
@@ -32,7 +33,7 @@ public final class GuiPlayerTabOverlayHook_PhxRespawnIcons {
     }
 
     public static void renderIcon(NetworkPlayerInfo playerInfo, String playerName, int x, int y) {
-        if (playerInfo == null || playerName == null) {
+        if (playerInfo == null || playerName == null || !ScoreboardTracker.isInDeathMatch()) {
             return;
         }
         final String profileName = playerInfo.getGameProfile().getName();
@@ -46,7 +47,7 @@ public final class GuiPlayerTabOverlayHook_PhxRespawnIcons {
 
         final Minecraft mc = Minecraft.getMinecraft();
         final int iconX = x + mc.fontRendererObj.getStringWidth(playerName.substring(0, phxTagEnd));
-        final ResourceLocation icon = PhxRespawnListener.isRespawned(profileName) ? RESPAWNED_ICON : NOT_RESPAWNED_ICON;
+        final ResourceLocation icon = PhxRespawnListener.isRespawned(profileName) ? NOT_RESPAWNED_ICON : RESPAWNED_ICON;
 
         mc.getTextureManager().bindTexture(icon);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

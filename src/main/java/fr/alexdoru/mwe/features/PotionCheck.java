@@ -49,6 +49,14 @@ public class PotionCheck {
         return state == null ? 0 : state.usedPots;
     }
 
+    public static int getRemainingPotsCount(String playerName, MWClass mwClass) {
+        final MWClassPotion potData = MWClassPotion.fromClass(mwClass);
+        if (potData == null || potData.potionCount <= 0) {
+            return -1;
+        }
+        return Math.max(0, potData.potionCount - getUsedPotsCount(playerName));
+    }
+
     private static UUID populateUuidCacheFromEntity(String playerName) {
         final Minecraft mc = Minecraft.getMinecraft();
         final NetworkPlayerInfo netInfo = mc.getNetHandler() != null ? mc.getNetHandler().getPlayerInfo(playerName) : null;

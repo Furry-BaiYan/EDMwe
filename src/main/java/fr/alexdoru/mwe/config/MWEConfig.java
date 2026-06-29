@@ -648,6 +648,12 @@ public class MWEConfig extends AbstractConfig {
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "General",
+            name = "Renegade Arrows On Nametags",
+            comment = "Appends the pinned renegade arrow count to vanilla nametags and compatible nametag mods")
+    public static boolean renegadeArrowCountOnNametags = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "General",
             name = "Detect the Potion Use",
             comment = "Detect Potion Use in DM")
     public static boolean potionDetector = true;
@@ -657,6 +663,18 @@ public class MWEConfig extends AbstractConfig {
             name = "Potion Counts In Tablist",
             comment = "Render Potion Counts In Tablist")
     public static boolean potionCountsInTabList = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "General",
+            name = "Potion Counts On Nametags",
+            comment = "Appends remaining potion count like (2) to vanilla nametags and compatible nametag mods")
+    public static boolean potionCountsOnNametags = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "General",
+            name = "PHX Respawn Icons On Nametags",
+            comment = "Appends Phoenix respawn status to vanilla nametags and compatible nametag mods")
+    public static boolean phxRespawnIconsOnNametags = true;
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "General",
@@ -981,6 +999,9 @@ public class MWEConfig extends AbstractConfig {
             "Show Warning Icons",
             "Warning Icons In Tab Only",
             "Potion Counts In Tablist",
+            "Potion Counts On Nametags",
+            "Renegade Arrows On Nametags",
+            "PHX Respawn Icons On Nametags",
             "Pink squadmates"})
     public static void refreshAllNames() {
         NameUtil.refreshAllNamesInWorld();
