@@ -776,13 +776,7 @@ public class MWEConfig extends AbstractConfig {
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "HUD",
-            name = "Skill Cooldown HUD Text Color",
-            isColor = true)
-    public static int skillCooldownHUDTextColor = 0x55FFFF;
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "HUD",
-            name = "Skill Cooldown HUD Status Color",
+            name = "Skill Cooldown HUD Number Color",
             isColor = true)
     public static int skillCooldownHUDStatusColor = 0x55FF55;
 

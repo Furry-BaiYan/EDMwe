@@ -9,7 +9,7 @@ public class SkillCooldownHUD extends AbstractRenderer {
 
     private static final long DISPLAY_DURATION_MS = 2500L;
     private static final String LABEL = "SKILL";
-    private static String currentStatus = "";
+    private static String currentNumber = "";
     private static long showUntil;
 
     public SkillCooldownHUD() {
@@ -24,53 +24,61 @@ public class SkillCooldownHUD extends AbstractRenderer {
         if (stripped == null || !stripped.contains("SKILL")) {
             return text;
         }
-        final String skillStatus = getSkillStatus(stripped);
-        if (!skillStatus.isEmpty()) {
-            currentStatus = skillStatus;
+        final String skillNumber = getSkillNumber(stripped);
+        if (!skillNumber.isEmpty()) {
+            currentNumber = skillNumber;
             showUntil = System.currentTimeMillis() + DISPLAY_DURATION_MS;
+        } else {
+            currentNumber = "";
+            showUntil = 0L;
         }
         return text;
     }
 
-    private static String getSkillStatus(String strippedText) {
+    private static String getSkillNumber(String strippedText) {
         final int skillIndex = strippedText.indexOf(LABEL);
         if (skillIndex < 0) {
             return "";
         }
-        int statusStart = skillIndex + LABEL.length();
-        while (statusStart < strippedText.length() && Character.isWhitespace(strippedText.charAt(statusStart))) {
-            statusStart++;
+        int numberStart = -1;
+        for (int i = skillIndex + LABEL.length(); i < strippedText.length(); i++) {
+            if (Character.isDigit(strippedText.charAt(i))) {
+                numberStart = i;
+                break;
+            }
+            if (!Character.isWhitespace(strippedText.charAt(i))) {
+                return "";
+            }
         }
-        int statusEnd = statusStart;
-        while (statusEnd < strippedText.length() && !Character.isWhitespace(strippedText.charAt(statusEnd))) {
-            statusEnd++;
+        if (numberStart < 0) {
+            return "";
         }
-        return statusStart < statusEnd ? strippedText.substring(statusStart, statusEnd) : "";
+        int numberEnd = numberStart;
+        while (numberEnd < strippedText.length() && Character.isDigit(strippedText.charAt(numberEnd))) {
+            numberEnd++;
+        }
+        return strippedText.substring(numberStart, numberEnd);
     }
 
     @Override
     public void render(ScaledResolution resolution) {
         this.guiPosition.updateAbsolutePosition(resolution);
-        drawSkillText(LABEL, currentStatus, this.guiPosition.getAbsoluteRenderX(), this.guiPosition.getAbsoluteRenderY());
+        drawSkillNumber(currentNumber, this.guiPosition.getAbsoluteRenderX(), this.guiPosition.getAbsoluteRenderY());
     }
 
     @Override
     public void renderDummy() {
-        drawSkillText(LABEL, "\u2714", this.guiPosition.getAbsoluteRenderX(), this.guiPosition.getAbsoluteRenderY());
+        drawSkillNumber("2", this.guiPosition.getAbsoluteRenderX(), this.guiPosition.getAbsoluteRenderY());
     }
 
-    private void drawSkillText(String label, String status, int centerX, int y) {
-        final String labelText = label + " ";
-        final int labelWidth = mc.fontRendererObj.getStringWidth(labelText);
-        final int statusWidth = mc.fontRendererObj.getStringWidth(status);
-        final int x = centerX - (labelWidth + statusWidth) / 2;
-        mc.fontRendererObj.drawStringWithShadow(labelText, x, y, MWEConfig.skillCooldownHUDTextColor);
-        mc.fontRendererObj.drawStringWithShadow(status, x + labelWidth, y, MWEConfig.skillCooldownHUDStatusColor);
+    private void drawSkillNumber(String number, int centerX, int y) {
+        final int width = mc.fontRendererObj.getStringWidth(number);
+        mc.fontRendererObj.drawStringWithShadow(number, centerX - width / 2, y, MWEConfig.skillCooldownHUDStatusColor);
     }
 
     @Override
     public boolean isEnabled(long currentTimeMillis) {
-        return this.guiPosition.isEnabled() && ScoreboardTracker.isInMwGame() && currentTimeMillis < showUntil && !currentStatus.isEmpty();
+        return this.guiPosition.isEnabled() && ScoreboardTracker.isInMwGame() && currentTimeMillis < showUntil && !currentNumber.isEmpty();
     }
 
 }
