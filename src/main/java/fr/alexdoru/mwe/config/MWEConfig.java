@@ -654,6 +654,18 @@ public class MWEConfig extends AbstractConfig {
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "General",
+            name = "Enderman Teleport Range",
+            comment = "Renders red hitboxes around enemies within 25 blocks when your Enderman teleport is ready")
+    public static boolean endermanTeleportRange = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "General",
+            name = "Tornado Check",
+            comment = "Alerts when enemy Shaman players have their Tornado fully charged")
+    public static boolean tornadoCheck = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "General",
             name = "Detect the Potion Use",
             comment = "Detect Potion Use in DM")
     public static boolean potionDetector = true;
@@ -741,20 +753,6 @@ public class MWEConfig extends AbstractConfig {
             name = "Last wither HUD in sidebar",
             comment = "Renders the Last wither HUD in the sidebar")
     public static boolean witherHUDinSidebar = true;
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "HUD",
-            name = "Strength HUD",
-            comment = "Displays the duration of the strength effect when you have it or when you are about to have it with Hunter."
-                    + " Works with Dreadlord, Herobrine, Hunter and Zombie.")
-    public static final GuiPosition strengthHUDPosition = new GuiPosition(true, 0.5d, 8d / 20d);
-
-    @ConfigPropertyEvent(name = "Strength HUD")
-    public static void onStrengthHUDSetting() {
-        if (MWEConfig.strengthHUDPosition.isEnabled()) {
-            SoundUtil.playStrengthSound();
-        }
-    }
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "HUD",

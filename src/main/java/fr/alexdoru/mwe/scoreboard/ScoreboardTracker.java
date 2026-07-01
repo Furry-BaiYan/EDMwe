@@ -2,6 +2,7 @@ package fr.alexdoru.mwe.scoreboard;
 
 import fr.alexdoru.mwe.events.MegaWallsGameEvent;
 import fr.alexdoru.mwe.features.FinalKillCounter;
+import fr.alexdoru.mwe.features.TornadoCheck;
 import fr.alexdoru.mwe.gui.guiapi.GuiManager;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
@@ -82,6 +83,7 @@ public class ScoreboardTracker {
 
             if (this.prevGameId != null) {
                 MinecraftForge.EVENT_BUS.post(new MegaWallsGameEvent(MegaWallsGameEvent.EventType.DISCONNECT));
+                TornadoCheck.resetAlerts();
             }
 
         } else { // is in MW game
@@ -94,6 +96,7 @@ public class ScoreboardTracker {
 
             if (!gameId.equals(this.prevGameId)) {
                 MinecraftForge.EVENT_BUS.post(new MegaWallsGameEvent(MegaWallsGameEvent.EventType.CONNECT));
+                TornadoCheck.resetAlerts();
             }
 
         }

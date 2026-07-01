@@ -60,6 +60,8 @@ public class MWE {
     public void init(FMLInitializationEvent event) {
             this.renegadeTracker = new RenegadeArrowTracker();
             MinecraftForge.EVENT_BUS.register(this.renegadeTracker);
+            MinecraftForge.EVENT_BUS.register(new EndermanTeleportRange());
+            MinecraftForge.EVENT_BUS.register(new TornadoCheck());
             MinecraftForge.EVENT_BUS.register(new PhxRespawnListener());
             MinecraftForge.EVENT_BUS.register(new WdrData());
             MinecraftForge.EVENT_BUS.register(new GuiManager());
