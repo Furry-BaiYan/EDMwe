@@ -756,6 +756,20 @@ public class MWEConfig extends AbstractConfig {
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "HUD",
+            name = "Strength HUD",
+            comment = "Displays the duration of the strength effect when you have it or when you are about to have it with Hunter."
+                    + " Works with Dreadlord, Herobrine, Hunter and Zombie.")
+    public static final GuiPosition strengthHUDPosition = new GuiPosition(true, 0.5d, 8d / 20d);
+
+    @ConfigPropertyEvent(name = "Strength HUD")
+    public static void onStrengthHUDSetting() {
+        if (MWEConfig.strengthHUDPosition.isEnabled()) {
+            SoundUtil.playStrengthSound();
+        }
+    }
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "HUD",
             name = "Creeper primed TNT HUD",
             comment = "Displays the cooldown of primed TNT when playing Creeper")
     public static final GuiPosition creeperTNTHUDPosition = new GuiPosition(true, 0.5d, 8d / 20d);

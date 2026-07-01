@@ -15,6 +15,7 @@ import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.opengl.GL11;
 
 import java.util.regex.Pattern;
 
@@ -43,7 +44,7 @@ public class EndermanTeleportRange {
         if (!this.isHoldingSwordOrBow()) {
             return;
         }
-        this.renderEnemyHitboxes();
+        this.renderEnemyHitboxes(event.partialTicks);
     }
 
     private boolean isPlayerEnderman() {
@@ -66,13 +67,13 @@ public class EndermanTeleportRange {
         return heldItem.getItem() == Items.bow;
     }
 
-    private void renderEnemyHitboxes() {
+    private void renderEnemyHitboxes(float partialTicks) {
         for (final EntityPlayer player : mc.theWorld.playerEntities) {
             final double distance;
             if (player == null || player == mc.thePlayer || (distance = mc.thePlayer.getDistanceToEntity(player)) > TELEPORT_RANGE || this.isSameTeam(player)) {
                 continue;
             }
-            this.renderRedHitbox(player);
+            this.renderRedHitbox(player, partialTicks);
         }
     }
 
@@ -88,29 +89,31 @@ public class EndermanTeleportRange {
         return playerTeam.getRegisteredName().equals(myTeam.getRegisteredName());
     }
 
-    private void renderRedHitbox(EntityPlayer player) {
-        final double x = player.posX - mc.getRenderManager().viewerPosX;
-        final double y = player.posY - mc.getRenderManager().viewerPosY;
-        final double z = player.posZ - mc.getRenderManager().viewerPosZ;
+    private void renderRedHitbox(EntityPlayer player, float partialTicks) {
+        final double x = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks - mc.getRenderManager().viewerPosX;
+        final double y = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTicks - mc.getRenderManager().viewerPosY;
+        final double z = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTicks - mc.getRenderManager().viewerPosZ;
         final float width = player.width;
         final float height = player.height;
 
         GlStateManager.pushMatrix();
-        GlStateManager.translate(x, y, z);
-        GlStateManager.disableTexture2D();
-        GlStateManager.disableDepth();
-        GlStateManager.disableLighting();
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(770, 771);
-        GlStateManager.color(1.0F, 0.0F, 0.0F, 1.0F);
-        this.renderHitboxOutline(width, height);
-        GlStateManager.enableTexture2D();
-        GlStateManager.disableBlend();
-        GlStateManager.enableDepth();
-        GlStateManager.depthMask(true);
-        GlStateManager.enableLighting();
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.popMatrix();
+        GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_LINE_BIT | GL11.GL_CURRENT_BIT);
+        try {
+            GlStateManager.translate(x, y, z);
+            GlStateManager.disableTexture2D();
+            GlStateManager.disableDepth();
+            GlStateManager.depthMask(false);
+            GlStateManager.disableLighting();
+            GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+            GL11.glLineWidth(2.0F);
+            GlStateManager.color(1.0F, 0.0F, 0.0F, 1.0F);
+            this.renderHitboxOutline(width, height);
+        } finally {
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glPopAttrib();
+            GlStateManager.popMatrix();
+        }
     }
 
     private void renderHitboxOutline(float width, float height) {

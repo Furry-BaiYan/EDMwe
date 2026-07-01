@@ -6,6 +6,10 @@ import net.minecraft.util.ResourceLocation;
 
 public class SoundUtil {
 
+    public static void playStrengthSound() {
+        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("item.fireCharge.use"), 0.0F));
+    }
+
     public static void playChatNotifSound() {
         Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("random.orb"), 1.0F));
     }
