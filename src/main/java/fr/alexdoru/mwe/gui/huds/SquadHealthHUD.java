@@ -180,7 +180,7 @@ public class SquadHealthHUD extends AbstractRenderer
     }
     
     private String getPlayerName(final NetworkPlayerInfo networkPlayerInfoIn) {
-        final String formattedName = NameUtil.getFormattedName(networkPlayerInfoIn);
+        final String formattedName = NameUtil.getFormattedNameWithoutIcons(networkPlayerInfoIn);
         return SquadHealthHUD.squadSuffixPattern.matcher(formattedName).replaceFirst("");
     }
     
