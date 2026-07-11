@@ -654,12 +654,6 @@ public class MWEConfig extends AbstractConfig {
 
     @ConfigProperty(
             category = MEGA_WALLS, subCategory = "General",
-            name = "Enderman Teleport Range",
-            comment = "Renders red hitboxes around enemies within 25 blocks when your Enderman teleport is ready")
-    public static boolean endermanTeleportRange = true;
-
-    @ConfigProperty(
-            category = MEGA_WALLS, subCategory = "General",
             name = "Tornado Check",
             comment = "Alerts when enemy Shaman players have their Tornado fully charged")
     public static boolean tornadoCheck = true;
