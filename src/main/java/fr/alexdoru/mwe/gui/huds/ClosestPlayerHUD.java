@@ -205,15 +205,24 @@ public class ClosestPlayerHUD extends AbstractRenderer
     }
 
     private static boolean isVaildEntity(final EntityPlayer nearbyEntity, final EntityPlayer targetEntity) {
-        if (nearbyEntity == targetEntity) {
+        if (nearbyEntity == null || targetEntity == null || nearbyEntity == targetEntity) {
             return false;
         }
         //        if (AntiBot.instance.isBlackListed(nearbyEntity)) {
         //            return false;
         //        }
-        final String targetName = NameUtil.getFormattedNameWithoutIcons(targetEntity.getDisplayName().getUnformattedText());
-        final String nearbyEntityName = NameUtil.getFormattedNameWithoutIcons(nearbyEntity.getDisplayName().getUnformattedText());
-        return targetName.substring(0, 2).equals(nearbyEntityName.substring(0, 2));
+        final IChatComponent targetDisplayName = targetEntity.getDisplayName();
+        final IChatComponent nearbyDisplayName = nearbyEntity.getDisplayName();
+        if (targetDisplayName == null || nearbyDisplayName == null) {
+            return false;
+        }
+
+        final String targetName = NameUtil.getFormattedNameWithoutIcons(targetDisplayName.getUnformattedText());
+        final String nearbyEntityName = NameUtil.getFormattedNameWithoutIcons(nearbyDisplayName.getUnformattedText());
+        if (targetName.length() < 2 || nearbyEntityName.length() < 2) {
+            return false;
+        }
+        return targetName.regionMatches(0, nearbyEntityName, 0, 2);
     }
 
     public void renderDummy() {
