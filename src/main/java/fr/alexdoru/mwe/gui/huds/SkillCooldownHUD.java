@@ -1,6 +1,7 @@
 package fr.alexdoru.mwe.gui.huds;
 
 import fr.alexdoru.mwe.config.MWEConfig;
+import fr.alexdoru.mwe.enums.MWClass;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.StringUtils;
@@ -78,7 +79,15 @@ public class SkillCooldownHUD extends AbstractRenderer {
 
     @Override
     public boolean isEnabled(long currentTimeMillis) {
-        return this.guiPosition.isEnabled() && ScoreboardTracker.isInMwGame() && currentTimeMillis < showUntil && !currentNumber.isEmpty();
+        return this.guiPosition.isEnabled()
+                && ScoreboardTracker.isInMwGame()
+                && !isPhoenix()
+                && currentTimeMillis < showUntil
+                && !currentNumber.isEmpty();
+    }
+
+    private boolean isPhoenix() {
+        return mc.thePlayer != null && MWClass.ofPlayer(mc.thePlayer.getName()) == MWClass.PHOENIX;
     }
 
 }
