@@ -81,13 +81,17 @@ public class SkillCooldownHUD extends AbstractRenderer {
     public boolean isEnabled(long currentTimeMillis) {
         return this.guiPosition.isEnabled()
                 && ScoreboardTracker.isInMwGame()
-                && !isPhoenix()
+                && !shouldHideForClass()
                 && currentTimeMillis < showUntil
                 && !currentNumber.isEmpty();
     }
 
-    private boolean isPhoenix() {
-        return mc.thePlayer != null && MWClass.ofPlayer(mc.thePlayer.getName()) == MWClass.PHOENIX;
+    private boolean shouldHideForClass() {
+        if (mc.thePlayer == null) {
+            return false;
+        }
+        final MWClass mwClass = MWClass.ofPlayer(mc.thePlayer.getName());
+        return mwClass == MWClass.PHOENIX || mwClass == MWClass.SNOWMAN;
     }
 
 }
