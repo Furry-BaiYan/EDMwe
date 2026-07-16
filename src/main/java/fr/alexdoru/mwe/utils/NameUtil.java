@@ -12,6 +12,7 @@ import fr.alexdoru.mwe.data.AliasData;
 import fr.alexdoru.mwe.data.MWPlayerData;
 import fr.alexdoru.mwe.data.ScangameData;
 import fr.alexdoru.mwe.enums.MWClass;
+import fr.alexdoru.mwe.features.DiamondDetector;
 import fr.alexdoru.mwe.features.LeatherArmorManager;
 import fr.alexdoru.mwe.features.PotionCheck;
 import fr.alexdoru.mwe.features.SquadHandler;
@@ -280,8 +281,9 @@ public class NameUtil {
                 final boolean isNicked = NameUtil.isNickedPlayer(id);
                 final int pots = PotionCheck.getUsedPotsCount(username);
                 final boolean showPots = pots > 0 && MWEConfig.potionCountsInTabList;
+                final boolean hasDiamondSwordFlag = MWEConfig.diamondSwordFlagInTablist && DiamondDetector.hasBeenAlerted(username);
                 final String alias = AliasData.getAlias(isNicked ? username : uuid);
-                if (iExtraPrefix != null || isobf || isNicked || squadname != null || alias != null || showPots) {
+                if (iExtraPrefix != null || isobf || isNicked || squadname != null || alias != null || showPots || hasDiamondSwordFlag) {
                     final StringBuilder sb = new StringBuilder();
                     if (iExtraPrefix != null) sb.append(extraPrefix);
                     if (isobf && MWEConfig.deobfNamesInTab) sb.append(deobfString(teamprefix));
@@ -297,6 +299,9 @@ public class NameUtil {
                     }
                     if (alias != null) {
                         sb.append(EnumChatFormatting.RESET).append(" (").append(EnumChatFormatting.GOLD).append(alias).append(EnumChatFormatting.RESET).append(")");
+                    }
+                    if (hasDiamondSwordFlag) {
+                        sb.append(EnumChatFormatting.AQUA).append(EnumChatFormatting.BOLD).append("\u24C8");
                     }
                     displayName = new ChatComponentText(sb.toString());
                 }

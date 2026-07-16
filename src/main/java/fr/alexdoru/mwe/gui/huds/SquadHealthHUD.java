@@ -9,6 +9,7 @@ import fr.alexdoru.mwe.asm.hooks.GuiPlayerTabOverlayHook_ColoredScores;
 import fr.alexdoru.mwe.asm.hooks.NetHandlerPlayClientHook_PlayerMapTracker;
 import fr.alexdoru.mwe.asm.interfaces.NetworkPlayerInfoAccessor;
 import fr.alexdoru.mwe.config.MWEConfig;
+import fr.alexdoru.mwe.features.DiamondDetector;
 import fr.alexdoru.mwe.features.SquadHandler;
 import fr.alexdoru.mwe.scoreboard.ScoreboardTracker;
 import fr.alexdoru.mwe.utils.ColorUtil;
@@ -181,7 +182,11 @@ public class SquadHealthHUD extends AbstractRenderer
     
     private String getPlayerName(final NetworkPlayerInfo networkPlayerInfoIn) {
         final String formattedName = NameUtil.getFormattedNameWithoutIcons(networkPlayerInfoIn);
-        return SquadHealthHUD.squadSuffixPattern.matcher(formattedName).replaceFirst("");
+        final String squadName = SquadHealthHUD.squadSuffixPattern.matcher(formattedName).replaceFirst("");
+        if (MWEConfig.squadHUDDiamondSwordIndicator && DiamondDetector.hasBeenAlerted(networkPlayerInfoIn.getGameProfile().getName())) {
+            return squadName + EnumChatFormatting.AQUA + "" + EnumChatFormatting.BOLD + "\u24C8";
+        }
+        return squadName;
     }
     
     public void renderDummy() {

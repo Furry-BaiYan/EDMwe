@@ -1,6 +1,7 @@
 package fr.alexdoru.mwe.scoreboard;
 
 import fr.alexdoru.mwe.events.MegaWallsGameEvent;
+import fr.alexdoru.mwe.features.DiamondDetector;
 import fr.alexdoru.mwe.features.FinalKillCounter;
 import fr.alexdoru.mwe.features.TornadoCheck;
 import fr.alexdoru.mwe.gui.guiapi.GuiManager;
@@ -45,6 +46,10 @@ public class ScoreboardTracker {
     public void onGameStart(MegaWallsGameEvent event) {
         if (event.getType() == MegaWallsGameEvent.EventType.GAME_START) {
             ScoreboardParser.onGameStart();
+        }
+        if (event.getType() == MegaWallsGameEvent.EventType.GAME_START
+                || event.getType() == MegaWallsGameEvent.EventType.CONNECT) {
+            DiamondDetector.resetAlerts();
         }
     }
 

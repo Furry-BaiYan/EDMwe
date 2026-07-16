@@ -653,6 +653,24 @@ public class MWEConfig extends AbstractConfig {
     public static boolean renegadeArrowCountOnNametags = true;
 
     @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Diamond Detector",
+            name = "Diamond Detector",
+            comment = "Alerts when certain classes hold diamond swords")
+    public static boolean diamondDetector = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Diamond Detector",
+            name = "Diamond Sword Flag in Tablist",
+            comment = "Shows a diamond sword marker next to players flagged for holding diamond swords")
+    public static boolean diamondSwordFlagInTablist = true;
+
+    @ConfigProperty(
+            category = MEGA_WALLS, subCategory = "Diamond Detector",
+            name = "Diamond Armor Detector",
+            comment = "Alerts when players wear diamond armor pieces outside their class kit")
+    public static boolean diamondArmorDetector = true;
+
+    @ConfigProperty(
             category = MEGA_WALLS, subCategory = "General",
             name = "Tornado Check",
             comment = "Alerts when enemy Shaman players have their Tornado fully charged")
@@ -1208,6 +1226,12 @@ public class MWEConfig extends AbstractConfig {
             name = "Squad HUD",
             comment = "Displays a mini-tablist with your squadmates")
     public static final GuiPosition squadHUDPosition = new GuiPosition(true, 0.25d, 0d);
+
+    @ConfigProperty(
+            category = SQUAD, subCategory = "HUD",
+            name = "Diamond Sword Indicator",
+            comment = "Shows a diamond sword marker for flagged players in the Squad HUD")
+    public static boolean squadHUDDiamondSwordIndicator = true;
 
     public static boolean automaticUpdate = false;
 

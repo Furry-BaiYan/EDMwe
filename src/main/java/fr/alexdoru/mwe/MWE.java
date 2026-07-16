@@ -71,6 +71,7 @@ public class MWE {
             MinecraftForge.EVENT_BUS.register(new LowHPIndicator());
             MinecraftForge.EVENT_BUS.register(new FinalKillCounter());
             MinecraftForge.EVENT_BUS.register(new ScoreboardTracker());
+            MinecraftForge.EVENT_BUS.register(new DiamondDetector());
             MinecraftForge.EVENT_BUS.register(this.potionCheck);
             MinecraftForge.EVENT_BUS.register(new PlayerJoinListener());
             MinecraftForge.EVENT_BUS.register(new KeybindingListener());
